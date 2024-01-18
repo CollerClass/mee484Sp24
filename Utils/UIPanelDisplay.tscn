@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://uuj16p5aw6lj"]
+
+[ext_resource type="Script" path="res://Utils/UIPanelDisplay.cs" id="1_ok15q"]
+
+[node name="UIPanelDisplay" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 133.0
+grow_horizontal = 2
+script = ExtResource("1_ok15q")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2

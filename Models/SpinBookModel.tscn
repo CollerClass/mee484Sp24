@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://r4gsje2eu4of"]
+
+[ext_resource type="Texture2D" uid="uid://cjwxihlcb6n6x" path="res://Textures/boxTex3Num.png" id="1_f4pig"]
+[ext_resource type="Script" path="res://Models/SpinBookModel.cs" id="1_kl0ux"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwx05"]
+albedo_texture = ExtResource("1_f4pig")
+
+[sub_resource type="BoxMesh" id="BoxMesh_cwck2"]
+material = SubResource("StandardMaterial3D_pwx05")
+size = Vector3(1, 0.6, 0.3)
+
+[node name="SpinBookModel" type="Node3D"]
+script = ExtResource("1_kl0ux")
+
+[node name="Book" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_cwck2")
