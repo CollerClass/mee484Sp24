@@ -7,14 +7,28 @@ using System;
 public partial class SpinBookModel : Node3D
 {
 	Transform3D tr;      // Transform
+	Vector3 cgLoc;
 
-	// Called when the node enters the scene tree for the first time.
+	//------------------------------------------------------------------------
+    // _Ready
+    //------------------------------------------------------------------------
 	public override void _Ready()
 	{
+		cgLoc = new Vector3();
+		tr = new Transform3D();
+
+		tr.Origin = cgLoc;
+		tr.Basis = Basis.Identity;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	//------------------------------------------------------------------------
+    // setCGLoc: Set location of the center of mass
+    //------------------------------------------------------------------------
+    public void SetCGLoc(Vector3 org)
+    {
+		cgLoc = org;
+		tr.Origin = cgLoc;
+		
+		Transform = tr;
 	}
 }

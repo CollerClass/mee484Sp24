@@ -14,6 +14,11 @@ config/name="Project 484 Sp 24"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1366
+window/size/viewport_height=768
+
 [dotnet]
 
 project/assembly_name="Project 484 Sp 24"
