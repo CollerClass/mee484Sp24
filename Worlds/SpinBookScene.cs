@@ -29,6 +29,10 @@ public partial class SpinBookScene : Node3D
 	float camFOV;
 	Vector3 camTg;       // coords of camera target
 
+	UIPanelDisplay datDisplay; // to display numeric data
+	int dispCtr;
+	int dispTHold;
+
 
 	//------------------------------------------------------------------------
 	// _Ready: Called once when the node enters the scene tree for the first 
@@ -36,7 +40,7 @@ public partial class SpinBookScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Ready()
 	{
-		GD.Print("Hello MEE 484");
+		GD.Print("MEE 484 - Spinning Book");
 
 		float bookHeight = 0.7f;
 		camTg = new Vector3(0.0f, bookHeight, 0.0f);
@@ -56,6 +60,19 @@ public partial class SpinBookScene : Node3D
 		cam.Target = camTg;
 		cam.FOVDeg = camFOV;
 		//cam.SetOrthographic(2.0f);
+
+		// Set up the data display
+        datDisplay = GetNode<UIPanelDisplay>(
+            "UINode/MarginContainer/DatDisplay");
+        datDisplay.SetNDisplay(3);
+        datDisplay.SetLabel(0,"Omega1");
+        datDisplay.SetDigitsAfterDecimal(0,2);
+        datDisplay.SetLabel(1,"Omega2");
+        datDisplay.SetDigitsAfterDecimal(1,2);
+        datDisplay.SetLabel(2,"Omega3");
+        datDisplay.SetDigitsAfterDecimal(2,2);
+		dispCtr = 0;
+		dispTHold = 4;
 
 		// set up the simulation
 		sim = new SpinBook();
@@ -85,6 +102,14 @@ public partial class SpinBookScene : Node3D
 		quat.Z = (float)sim.q3;
 
 		model.SetOrientation(quat);
+
+		if(dispCtr > dispTHold){
+			datDisplay.SetValue(0, (float)sim.omega1);
+			datDisplay.SetValue(1, (float)sim.omega2);
+			datDisplay.SetValue(2, (float)sim.omega3);
+			dispCtr = 0;
+		}
+		++dispCtr;
 	}
 
 	//------------------------------------------------------------------------
