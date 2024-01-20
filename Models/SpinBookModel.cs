@@ -28,7 +28,16 @@ public partial class SpinBookModel : Node3D
     {
 		cgLoc = org;
 		tr.Origin = cgLoc;
-		
+
+		Transform = tr;
+	}
+
+	//------------------------------------------------------------------------
+    // SetOrientation:
+    //------------------------------------------------------------------------
+    public void SetOrientation(Quaternion q)
+    {
+		tr.Basis = new Basis(q);
 		Transform = tr;
 	}
 }
