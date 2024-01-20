@@ -111,4 +111,10 @@ public partial class CamRig : Node3D
             }
         }
     }
+
+    public void SetOrthographic(float sz)
+    {
+        cam.Projection = Camera3D.ProjectionType.Orthogonal;
+        cam.Size = sz;
+    }
 }
