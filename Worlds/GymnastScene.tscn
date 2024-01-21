@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://crkcshyvh5eio"]
+
+[ext_resource type="Script" path="res://Worlds/GymnastScene.cs" id="1_3y8fi"]
+[ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_mviwq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htejf"]
+albedo_texture = ExtResource("1_mviwq")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_amkqh"]
+material = SubResource("StandardMaterial3D_htejf")
+size = Vector2(4, 4)
+
+[node name="GymnastScene" type="Node3D"]
+script = ExtResource("1_3y8fi")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_amkqh")
