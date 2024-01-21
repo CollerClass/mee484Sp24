@@ -1,7 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://crkcshyvh5eio"]
+[gd_scene load_steps=9 format=3 uid="uid://crkcshyvh5eio"]
 
 [ext_resource type="Script" path="res://Worlds/GymnastScene.cs" id="1_3y8fi"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_mviwq"]
+[ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="3_xv6ke"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ti6fq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_n5hoq"]
+sky_material = SubResource("ProceduralSkyMaterial_ti6fq")
+
+[sub_resource type="Environment" id="Environment_0kvsu"]
+background_mode = 2
+sky = SubResource("Sky_n5hoq")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htejf"]
 albedo_texture = ExtResource("1_mviwq")
@@ -14,5 +28,14 @@ size = Vector2(4, 4)
 [node name="GymnastScene" type="Node3D"]
 script = ExtResource("1_3y8fi")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 19.3803, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0kvsu")
+
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_amkqh")
+
+[node name="CamRig" parent="." instance=ExtResource("3_xv6ke")]
