@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dmxg6g2d04uib"]
+
+[node name="GymBlockModel" type="Node3D"]
+
+[node name="RootNode" type="Node3D" parent="."]
