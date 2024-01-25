@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dmxg6g2d04uib"]
+[gd_scene load_steps=45 format=3 uid="uid://dmxg6g2d04uib"]
 
 [ext_resource type="Script" path="res://Models/GymBlockModel.cs" id="1_5ccvn"]
 [ext_resource type="Texture2D" uid="uid://c02pxsnpwvuui" path="res://Textures/boxTex3PiBu.png" id="2_tepmr"]
@@ -108,6 +108,61 @@ albedo_texture = ExtResource("3_1wbfd")
 material = SubResource("StandardMaterial3D_nr7fc")
 size = Vector3(0.12, 0.005, 0.09)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p08i5"]
+albedo_texture = ExtResource("6_0figt")
+
+[sub_resource type="SphereMesh" id="SphereMesh_dlixv"]
+material = SubResource("StandardMaterial3D_p08i5")
+radius = 0.07
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qufj8"]
+albedo_texture = ExtResource("5_0cyms")
+
+[sub_resource type="SphereMesh" id="SphereMesh_cxv6a"]
+material = SubResource("StandardMaterial3D_qufj8")
+radius = 0.05
+height = 0.442
+radial_segments = 32
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptgpp"]
+albedo_texture = ExtResource("6_0figt")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gxovf"]
+material = SubResource("StandardMaterial3D_ptgpp")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.08
+radial_segments = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7k16"]
+albedo_texture = ExtResource("6_0figt")
+
+[sub_resource type="SphereMesh" id="SphereMesh_uomvn"]
+material = SubResource("StandardMaterial3D_q7k16")
+radius = 0.07
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ll50g"]
+albedo_texture = ExtResource("5_0cyms")
+
+[sub_resource type="SphereMesh" id="SphereMesh_a4b2h"]
+material = SubResource("StandardMaterial3D_ll50g")
+radius = 0.05
+height = 0.442
+radial_segments = 32
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhrr6"]
+albedo_texture = ExtResource("6_0figt")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rf2fm"]
+material = SubResource("StandardMaterial3D_rhrr6")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.08
+
 [node name="GymBlockModel" type="Node3D"]
 script = ExtResource("1_5ccvn")
 
@@ -183,3 +238,33 @@ mesh = SubResource("SphereMesh_ph7sf")
 [node name="HandR" type="MeshInstance3D" parent="RootNode/PelvisNode/WaistJoint/MidTorsoJoint/ShoulderRJoint/ElbowRJoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29, 0, 0)
 mesh = SubResource("BoxMesh_by06r")
+
+[node name="HipLJoint" type="Node3D" parent="RootNode/PelvisNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083, -0.068, 0)
+
+[node name="HipL" type="MeshInstance3D" parent="RootNode/PelvisNode/HipLJoint"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("SphereMesh_dlixv")
+
+[node name="UpperLegL" type="MeshInstance3D" parent="RootNode/PelvisNode/HipLJoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.221, 0)
+mesh = SubResource("SphereMesh_cxv6a")
+
+[node name="KneeL" type="MeshInstance3D" parent="RootNode/PelvisNode/HipLJoint"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.442, 0)
+mesh = SubResource("CylinderMesh_gxovf")
+
+[node name="HipRJoint" type="Node3D" parent="RootNode/PelvisNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, -0.068, 0)
+
+[node name="HipR" type="MeshInstance3D" parent="RootNode/PelvisNode/HipRJoint"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0, 0)
+mesh = SubResource("SphereMesh_uomvn")
+
+[node name="UpperLegR" type="MeshInstance3D" parent="RootNode/PelvisNode/HipRJoint"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.221, 0)
+mesh = SubResource("SphereMesh_a4b2h")
+
+[node name="KneeR" type="MeshInstance3D" parent="RootNode/PelvisNode/HipRJoint"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, -0.442, 0)
+mesh = SubResource("CylinderMesh_rf2fm")
