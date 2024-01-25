@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dmxg6g2d04uib"]
+[gd_scene load_steps=49 format=3 uid="uid://dmxg6g2d04uib"]
 
 [ext_resource type="Script" path="res://Models/GymBlockModel.cs" id="1_5ccvn"]
 [ext_resource type="Texture2D" uid="uid://c02pxsnpwvuui" path="res://Textures/boxTex3PiBu.png" id="2_tepmr"]
@@ -136,6 +136,14 @@ bottom_radius = 0.04
 height = 0.08
 radial_segments = 32
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5wbv"]
+albedo_texture = ExtResource("5_0cyms")
+
+[sub_resource type="SphereMesh" id="SphereMesh_gbfdl"]
+material = SubResource("StandardMaterial3D_e5wbv")
+radius = 0.045
+height = 0.446
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7k16"]
 albedo_texture = ExtResource("6_0figt")
 
@@ -162,6 +170,15 @@ material = SubResource("StandardMaterial3D_rhrr6")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 0.08
+radial_segments = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpear"]
+albedo_texture = ExtResource("5_0cyms")
+
+[sub_resource type="SphereMesh" id="SphereMesh_shdyr"]
+material = SubResource("StandardMaterial3D_jpear")
+radius = 0.045
+height = 0.446
 
 [node name="GymBlockModel" type="Node3D"]
 script = ExtResource("1_5ccvn")
@@ -254,6 +271,13 @@ mesh = SubResource("SphereMesh_cxv6a")
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.442, 0)
 mesh = SubResource("CylinderMesh_gxovf")
 
+[node name="KneeLJoint" type="Node3D" parent="RootNode/PelvisNode/HipLJoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442, 0)
+
+[node name="LowerLegL" type="MeshInstance3D" parent="RootNode/PelvisNode/HipLJoint/KneeLJoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223, 0)
+mesh = SubResource("SphereMesh_gbfdl")
+
 [node name="HipRJoint" type="Node3D" parent="RootNode/PelvisNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, -0.068, 0)
 
@@ -268,3 +292,10 @@ mesh = SubResource("SphereMesh_a4b2h")
 [node name="KneeR" type="MeshInstance3D" parent="RootNode/PelvisNode/HipRJoint"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, -0.442, 0)
 mesh = SubResource("CylinderMesh_rf2fm")
+
+[node name="KneeRJoint" type="Node3D" parent="RootNode/PelvisNode/HipRJoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.442, 0)
+
+[node name="LowerLegR" type="MeshInstance3D" parent="RootNode/PelvisNode/HipRJoint/KneeRJoint"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.223, 0)
+mesh = SubResource("SphereMesh_shdyr")
