@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://crkcshyvh5eio"]
+[gd_scene load_steps=10 format=3 uid="uid://crkcshyvh5eio"]
 
 [ext_resource type="Script" path="res://Worlds/GymnastScene.cs" id="1_3y8fi"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_mviwq"]
+[ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="2_730jc"]
 [ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="3_xv6ke"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ti6fq"]
@@ -28,8 +29,11 @@ size = Vector2(4, 4)
 [node name="GymnastScene" type="Node3D"]
 script = ExtResource("1_3y8fi")
 
+[node name="GymBlockModel" parent="." instance=ExtResource("2_730jc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.378952, 0)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 19.3803, 0)
+transform = Transform3D(0.332955, -0.816613, 0.47147, -4.17102e-08, 0.499998, 0.866026, -0.942943, -0.288348, 0.166477, 0, 10.7992, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

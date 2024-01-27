@@ -29,17 +29,17 @@ public partial class GymnastScene : Node3D
 		//model.SetCGLoc(camTg);
 
 		// Set up the camera rig
-		longitudeDeg = 30.0f;
-		latitudeDeg = 20.0f;
+		longitudeDeg = 40.0f;
+		latitudeDeg = 30.0f;
 		camDist = 4.0f;
-		camFOV = 55.0f;  // 40.0f
+		camFOV = 30.0f;  // 40.0f
 		
 		cam = GetNode<CamRig>("CamRig");
 		cam.LongitudeDeg = longitudeDeg;
 		cam.LatitudeDeg = latitudeDeg;
 		cam.Distance = camDist;
 		cam.Target = camTg;
-		//cam.FOVDeg = camFOV;
+		cam.FOVDeg = camFOV;
 
 	}
 
