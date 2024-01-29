@@ -6,7 +6,10 @@ using System;
 
 public partial class GymnastScene : Node3D
 {
+	GymBlockModel model;
+	CharacterItf  modelItf;
 
+	double time;
 
 	CamRig cam;
 	float longitudeDeg;
@@ -22,6 +25,10 @@ public partial class GymnastScene : Node3D
 	public override void _Ready()
 	{
 		GD.Print("MEE 484 - GymnastScene");
+
+		model = GetNode<GymBlockModel>("GymBlockModel");
+		modelItf = new GymBlockItf(model);
+		time = 0.0;
 
 		float cgHeight = 1.3f;
 		camTg = new Vector3(0.0f, cgHeight, 0.0f);
@@ -41,6 +48,7 @@ public partial class GymnastScene : Node3D
 		cam.Target = camTg;
 		cam.FOVDeg = camFOV;
 
+
 	}
 
 	//------------------------------------------------------------------------
@@ -49,5 +57,9 @@ public partial class GymnastScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Process(double delta)
 	{
+		float angle = (float)Math.Cos(time);
+		modelItf.SetSimpleWaistTwist(angle);
+
+		time += delta;
 	}
 }
