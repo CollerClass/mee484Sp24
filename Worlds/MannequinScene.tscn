@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://biaqusn044iaf"]
+[gd_scene load_steps=10 format=3 uid="uid://biaqusn044iaf"]
 
 [ext_resource type="Script" path="res://Worlds/MannequinScene.cs" id="1_8rqje"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_gv08s"]
 [ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="2_kvno1"]
+[ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="4_ssojr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_013tt"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,3 +40,5 @@ shadow_enabled = true
 mesh = SubResource("PlaneMesh_8ss26")
 
 [node name="CamRig" parent="." instance=ExtResource("2_kvno1")]
+
+[node name="GymBlockModel" parent="." instance=ExtResource("4_ssojr")]
