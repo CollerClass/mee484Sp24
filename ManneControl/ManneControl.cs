@@ -6,6 +6,7 @@ using System;
 
 public abstract class ManneControl
 {
+    protected double time;
 
     public virtual void Process(double delta)
     {

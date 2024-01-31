@@ -23,6 +23,11 @@ public class MCTestSimpleBC : ManneControl
     public override void Process(double delta)
     {
         //base.Process(delta);
+
+        float waistAngle = (float)Math.Cos(time);
+        modelItf.SetSimpleWaistTwist(waistAngle);
+
+        time += delta;
     }
 
     //------------------------------------------------------------------------

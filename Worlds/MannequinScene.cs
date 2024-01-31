@@ -11,7 +11,6 @@ public partial class MannequinScene : Node3D
 
 	ManneControl mcObject;
 
-	double time;
 	
 	CamRig cam;
 	float longitudeDeg;
@@ -31,7 +30,6 @@ public partial class MannequinScene : Node3D
 		//#### need to have this part choose from a selection
 		model = GetNode<GymBlockModel>("GymBlockModel");
 		modelItf = new GymBlockItf(model);
-		time = 0.0;
 
 		mcObject = new MCTestSimpleBC(modelItf);
 		//######################################
@@ -59,5 +57,6 @@ public partial class MannequinScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Process(double delta)
 	{
+		mcObject.Process(delta);
 	}
 }
