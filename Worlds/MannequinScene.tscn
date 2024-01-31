@@ -42,3 +42,4 @@ mesh = SubResource("PlaneMesh_8ss26")
 [node name="CamRig" parent="." instance=ExtResource("2_kvno1")]
 
 [node name="GymBlockModel" parent="." instance=ExtResource("4_ssojr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32235, 0)
