@@ -8,7 +8,8 @@ public class GymBlockItf : CharacterItf
 {
     GymBlockModel model;
 
-    Node3D elbowLNode;
+    Node3D shoulderLJoint;
+    Node3D elbowLJoint;
     Node3D waistJoint;
     bool modelLoaded;   //whether model has been loaded or not
 
@@ -21,12 +22,17 @@ public class GymBlockItf : CharacterItf
 
         waistJoint = model.GetNode<Node3D>
             ("RootNode/PelvisNode/WaistJoint");
+
+        shoulderLJoint = model.GetNode<Node3D>
+            ("RootNode/PelvisNode/WaistJoint/MidTorsoJoint/ShoulderLJoint");
     }
 
-    // public void SetModel(GymBlockModel gbm)
-    // {
-    //     model = gbm;
-    // }
+
+    public override void SetShoulderLAngleYXZ(float ay, float ax, float az)
+    {
+        //base.SetShoulderLAngleYXZ(ay, ax, az);
+        shoulderLJoint.Rotation = new Vector3(ax, ay, az);
+    }
 
     public override void SetElbowLAngle(float angle)
     {
