@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://biaqusn044iaf"]
+
+[ext_resource type="Script" path="res://Worlds/MannequinScene.cs" id="1_8rqje"]
+[ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_gv08s"]
+[ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="2_kvno1"]
+[ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="4_ssojr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_013tt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_jsn7b"]
+sky_material = SubResource("ProceduralSkyMaterial_013tt")
+
+[sub_resource type="Environment" id="Environment_mx3f5"]
+background_mode = 2
+sky = SubResource("Sky_jsn7b")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfpy7"]
+albedo_texture = ExtResource("1_gv08s")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ss26"]
+material = SubResource("StandardMaterial3D_jfpy7")
+size = Vector2(4, 4)
+
+[node name="MannequinScene" type="Node3D"]
+script = ExtResource("1_8rqje")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mx3f5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.978567, -0.178338, 0.102963, -1.49013e-08, 0.499998, 0.866027, -0.205927, -0.847465, 0.489282, 0, 4.70504, 0)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_8ss26")
+
+[node name="CamRig" parent="." instance=ExtResource("2_kvno1")]
+
+[node name="GymBlockModel" parent="." instance=ExtResource("4_ssojr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32235, 0)

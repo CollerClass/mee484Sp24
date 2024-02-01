@@ -4,13 +4,14 @@
 using Godot;
 using System;
 
-public partial class GymnastScene : Node3D
+public partial class MannequinScene : Node3D
 {
 	GymBlockModel model;
 	CharacterItf  modelItf;
 
-	double time;
+	ManneControl mcObject;
 
+	
 	CamRig cam;
 	float longitudeDeg;
 	float latitudeDeg;
@@ -24,16 +25,17 @@ public partial class GymnastScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Ready()
 	{
-		GD.Print("MEE 484 - GymnastScene");
-
+		//#####################################
+		//#### Only one model and one ManneControl hard coded in for now
+		//#### need to have this part choose from a selection
 		model = GetNode<GymBlockModel>("GymBlockModel");
 		modelItf = new GymBlockItf(model);
-		time = 0.0;
+
+		mcObject = new MCTestSimpleBC(modelItf);
+		//######################################
 
 		float cgHeight = 1.3f;
 		camTg = new Vector3(0.0f, cgHeight, 0.0f);
-		//model = GetNode<SpinBookModel>("SpinBookModel");
-		//model.SetCGLoc(camTg);
 
 		// Set up the camera rig
 		longitudeDeg = 40.0f;
@@ -47,8 +49,6 @@ public partial class GymnastScene : Node3D
 		cam.Distance = camDist;
 		cam.Target = camTg;
 		cam.FOVDeg = camFOV;
-
-
 	}
 
 	//------------------------------------------------------------------------
@@ -57,9 +57,6 @@ public partial class GymnastScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Process(double delta)
 	{
-		float angle = (float)Math.Cos(time);
-		modelItf.SetSimpleWaistTwist(angle);
-
-		time += delta;
+		mcObject.Process(delta);
 	}
 }
