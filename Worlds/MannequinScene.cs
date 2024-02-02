@@ -6,7 +6,12 @@ using System;
 
 public partial class MannequinScene : Node3D
 {
-	GymBlockModel model;
+	// When new models are created, they should be added
+	GymBlockModel modelGymBlock;
+	enum ModelType{
+		GymBlock,
+	}
+	ModelType modelType;
 	CharacterItf  modelItf;
 
 	ManneControl mcObject;
@@ -31,14 +36,28 @@ public partial class MannequinScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Ready()
 	{
+		// Specify the model type here
+		modelType = ModelType.GymBlock;
+
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
 
 
-		//#####################################
-		//#### Need to be able to handle multiple models
-		model = GetNode<GymBlockModel>("GymBlockModel");
-		modelItf = new GymBlockItf(model);
+		//----------------- Mechanism for model and control specification
+		switch(modelType){
+			// when new models are created, add them to the list
+			case ModelType.GymBlock:
+				modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+				modelItf = new GymBlockItf(modelGymBlock);
+				break;
+
+			default:
+				modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+				modelItf = new GymBlockItf(modelGymBlock);
+				break;
+		}
+		// modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+		// modelItf = new GymBlockItf(modelGymBlock);
 
 
 		switch(mcType){
@@ -52,6 +71,7 @@ public partial class MannequinScene : Node3D
 				mcObject = new MCTestSimpleBC(modelItf);
 				break;
 		}
+		//------------------
 
 		float cgHeight = 1.3f;
 		camTg = new Vector3(0.0f, cgHeight, 0.0f);
