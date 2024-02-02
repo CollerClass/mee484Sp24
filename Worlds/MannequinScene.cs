@@ -98,4 +98,14 @@ public partial class MannequinScene : Node3D
 	{
 		mcObject.Process(delta);
 	}
+
+    //------------------------------------------------------------------------
+    // _PhysicsProcess:
+    //------------------------------------------------------------------------
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+
+		mcObject.PhysicsProcess(delta);
+    }
 }

@@ -8,10 +8,21 @@ public class GymBlockItf : CharacterItf
 {
     GymBlockModel model;
 
-    Node3D shoulderLJoint;
-    Node3D elbowLJoint;
-    Node3D waistJoint;
-    bool modelLoaded;   //whether model has been loaded or not
+    int nJoints = 10;
+    Node3D[] joint;  // array of joints
+
+    // joint indices
+    int jWst   = 0;  // waist joint
+    int jTso   = 1;  // mid torso joint
+    int jShL   = 2;  // left shoulder
+    int jEbL   = 3;  // left elbow
+    int jShR   = 4;  // right shoulder
+    int jEbR   = 5;  // right elbow
+    int jHpL   = 6;  // left hip
+    int jKnL   = 7;  // left knee
+    int jHpR   = 8;  // right hip
+    int jKnR   = 9;  // right knee
+
 
     //------------------------------------------------------------------------
     // Constructor
@@ -20,29 +31,33 @@ public class GymBlockItf : CharacterItf
     {
         model = mdl;
 
-        waistJoint = model.GetNode<Node3D>
-            ("RootNode/PelvisNode/WaistJoint");
+        joint = new Node3D[nJoints];
 
-        shoulderLJoint = model.GetNode<Node3D>
-            ("RootNode/PelvisNode/WaistJoint/MidTorsoJoint/ShoulderLJoint");
+        string pathStr = "RootNode/PelvisNode/WaistJoint";
+        joint[jWst] = model.GetNode<Node3D>(pathStr);
+
+        pathStr += "/MidTorsoJoint/ShoulderLJoint";
+        joint[jShL] = model.GetNode<Node3D>(pathStr);
+
+        pathStr += "/ElbowLJoint";
+        joint[jEbL] = model.GetNode<Node3D>(pathStr);
+
+        //##### gotta keep goint
     }
 
 
     public override void SetShoulderLAngleYXZ(float ay, float ax, float az)
     {
-        //base.SetShoulderLAngleYXZ(ay, ax, az);
-        shoulderLJoint.Rotation = new Vector3(ax, ay, az);
+        joint[jShL].Rotation = new Vector3(ax, ay, az);
     }
 
     public override void SetElbowLAngle(float angle)
     {
-        //base.SetElbowLAngle(angle);
 
     }
 
     public override void SetSimpleWaistTwist(float angle)
-    {
-        //base.SetSimpleWaistTwist(angle);
-        waistJoint.Rotation = new Vector3(0.0f, angle, 0.0f);
+    {  
+        joint[jWst].Rotation = new Vector3(0.0f, angle, 0.0f);
     }
 }
