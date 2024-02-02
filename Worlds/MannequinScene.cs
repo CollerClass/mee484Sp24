@@ -11,6 +11,12 @@ public partial class MannequinScene : Node3D
 
 	ManneControl mcObject;
 
+	// When new ManneControl classes are created, they should be added to
+	// this list. 
+	enum ManneControlType{
+		SimpleBC,
+	}
+	ManneControlType mcType;
 	
 	CamRig cam;
 	float longitudeDeg;
@@ -25,14 +31,27 @@ public partial class MannequinScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Ready()
 	{
+		// Specify the class for mannequin interaction here
+		mcType = ManneControlType.SimpleBC;
+
+
 		//#####################################
-		//#### Only one model and one ManneControl hard coded in for now
-		//#### need to have this part choose from a selection
+		//#### Need to be able to handle multiple models
 		model = GetNode<GymBlockModel>("GymBlockModel");
 		modelItf = new GymBlockItf(model);
 
-		mcObject = new MCTestSimpleBC(modelItf);
-		//######################################
+
+		switch(mcType){
+			//## when new ManneControl classes created, add them to the list
+			case ManneControlType.SimpleBC:
+				mcObject = new MCTestSimpleBC(modelItf);
+				break;
+
+			default:
+				GD.PrintErr("MannequinScene: mcType not is switch list.");
+				mcObject = new MCTestSimpleBC(modelItf);
+				break;
+		}
 
 		float cgHeight = 1.3f;
 		camTg = new Vector3(0.0f, cgHeight, 0.0f);
