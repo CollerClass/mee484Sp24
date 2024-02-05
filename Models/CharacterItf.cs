@@ -21,6 +21,7 @@ public abstract class CharacterItf
 
     protected void QuatCalcEulerYXZ(float ax, float ay, float az)
     {
+        // in the future, I don't want to do this with a constructor
         qA = new Quaternion(Vector3.Up, ay);
         qB = new Quaternion(Vector3.Right, ax);  //right in positive x direction
         qC = new Quaternion(Vector3.Back, az);   // back in positive z direction
