@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://biaqusn044iaf"]
+[gd_scene load_steps=11 format=3 uid="uid://biaqusn044iaf"]
 
 [ext_resource type="Script" path="res://Worlds/MannequinScene.cs" id="1_8rqje"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_gv08s"]
 [ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="2_kvno1"]
 [ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="4_ssojr"]
+[ext_resource type="PackedScene" uid="uid://cnwloj3tg4u5b" path="res://Models/XBotModel.tscn" id="5_8x6l0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_013tt"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -43,3 +44,7 @@ mesh = SubResource("PlaneMesh_8ss26")
 
 [node name="GymBlockModel" parent="." instance=ExtResource("4_ssojr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32235, 0)
+visible = false
+
+[node name="XBotModel" parent="." instance=ExtResource("5_8x6l0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.330652, 0)
