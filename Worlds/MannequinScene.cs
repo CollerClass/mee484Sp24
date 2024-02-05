@@ -9,9 +9,10 @@ using System;
 public partial class MannequinScene : Node3D
 {
 	// When new models are created, they should be added
-	Node3D modelGymBlock;
+	Node3D model;
 	enum ModelType{
 		GymBlock,
+		XBot,
 	}
 	ModelType modelType;
 	CharacterItf  modelItf;
@@ -39,7 +40,8 @@ public partial class MannequinScene : Node3D
 	public override void _Ready()
 	{
 		// Specify the model type here
-		modelType = ModelType.GymBlock;
+		// modelType = ModelType.GymBlock;
+		modelType = ModelType.XBot;
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
@@ -49,18 +51,21 @@ public partial class MannequinScene : Node3D
 		switch(modelType){
 			// when new models are created, add them to the list
 			case ModelType.GymBlock:
-				modelGymBlock = GetNode<Node3D>("GymBlockModel");
-				modelItf = new GymBlockItf(modelGymBlock);
+				model = GetNode<Node3D>("GymBlockModel");
+				modelItf = new GymBlockItf(model);
 				break;
-
+			case ModelType.XBot:
+				model = GetNode<Node3D>("XBotModel");
+				modelItf = new MixamoItf(model);
+				break;
 			default:
-				modelGymBlock = GetNode<Node3D>("GymBlockModel");
-				modelItf = new GymBlockItf(modelGymBlock);
+				model = GetNode<Node3D>("GymBlockModel");
+				modelItf = new GymBlockItf(model);
 				break;
 		}
 		// modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
 		// modelItf = new GymBlockItf(modelGymBlock);
-
+		model.Show();
 
 		switch(mcType){
 			//## when new ManneControl classes created, add them to the list

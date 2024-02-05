@@ -49,6 +49,13 @@ public class MCTestSimpleBC : ManneControl
             angShL_Z -= dAngle;
         }
 
+        if(Input.IsActionPressed("ui_other_right")){
+            angShL_X += dAngle;
+        }
+        if(Input.IsActionPressed("ui_other_left")){
+            angShL_X -= dAngle;
+        }
+
         modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
 
         time += delta;

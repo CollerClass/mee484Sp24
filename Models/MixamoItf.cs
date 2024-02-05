@@ -16,4 +16,17 @@ public class MixamoItf : CharacterItf
         model = mdl;
     }
 
+
+    public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
+    {
+        //base.SetShoulderLAngleYXZ(ax, ay, az);
+        // nothing yet
+        //GD.Print("Mixamo: My left shoulder not working yet.");
+    }
+
+    public override void SetShoulderLAngleYZX(float ax, float ay, float az)
+    {
+        //base.SetShoulderLAngleYZX(ax, ay, az);
+        // nothing yet
+    }
 }

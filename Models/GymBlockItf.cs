@@ -57,8 +57,8 @@ public class GymBlockItf : CharacterItf
 
     public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
     {
-        uVec.X = ax;   uVec.Y = ay;   uVec.Z = az;
-        //joint[jShL].Rotation = uVec;
+        // uVec.X = ax;   uVec.Y = ay;   uVec.Z = az;
+        // joint[jShL].Rotation = uVec;
 
         QuatCalcEulerYXZ(ax,ay,az);
         joint[jShL].Quaternion = qResult;

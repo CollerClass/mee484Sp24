@@ -36,6 +36,15 @@ public abstract class CharacterItf
     public virtual void SetShoulderRAngleYXZ(float ax, float ay, float az)
     {
     }
+
+    public virtual void SetShoulderLAngleYZX(float ax, float ay, float az)
+    {
+    }
+
+    public virtual void SetShoulderRAngleYZX(float ax, float ay, float az)
+    {
+    }
+
     public virtual void SetElbowLAngle(float angle)
     {
     }
