@@ -10,6 +10,7 @@ public class GymBlockItf : CharacterItf
 
     int nJoints = 10;
     Node3D[] joint;  // array of joints
+    Quaternion[] quat; // array of quaternions;
 
     // joint indices
     int jWst   = 0;  // waist joint
@@ -32,6 +33,7 @@ public class GymBlockItf : CharacterItf
         model = mdl;
 
         joint = new Node3D[nJoints];
+        quat = new Quaternion[nJoints];
 
         string pathStr = "RootNode/PelvisNode/WaistJoint";
         joint[jWst] = model.GetNode<Node3D>(pathStr);
@@ -42,13 +44,24 @@ public class GymBlockItf : CharacterItf
         pathStr += "/ElbowLJoint";
         joint[jEbL] = model.GetNode<Node3D>(pathStr);
 
-        //##### gotta keep goint
+        pathStr = "RootNode/PelvisNode/WaistJoint";
+        pathStr += "/MidTorsoJoint/ShoulderRJoint";
+        joint[jShR] = model.GetNode<Node3D>(pathStr);
+
+        pathStr += "/ElbowRJoint";
+        joint[jEbR] = model.GetNode<Node3D>(pathStr);
+
+        //##### gotta keep going
     }
 
 
-    public override void SetShoulderLAngleYXZ(float ay, float ax, float az)
+    public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
     {
-        joint[jShL].Rotation = new Vector3(ax, ay, az);
+        uVec.X = ax;   uVec.Y = ay;   uVec.Z = az;
+        //joint[jShL].Rotation = uVec;
+
+        QuatCalcEulerYXZ(ax,ay,az);
+        joint[jShL].Quaternion = qResult;
     }
 
     public override void SetElbowLAngle(float angle)

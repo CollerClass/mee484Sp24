@@ -1,5 +1,7 @@
 //============================================================================
-// GymnastScene.cs   Scene for simulating the spinning gymnast
+// MannequinScene.cs   Scene for developing and testing gymnast models, and
+//           and gymnast actions (choreography, controllers, etc). The model
+//           here is disconnected from the physics engine.
 //============================================================================
 using Godot;
 using System;
