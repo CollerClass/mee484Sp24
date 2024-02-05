@@ -6,7 +6,7 @@ using System;
 
 public class GymBlockItf : CharacterItf
 {
-    GymBlockModel model;
+    Node3D model;
 
     int nJoints = 10;
     Node3D[] joint;  // array of joints
@@ -28,7 +28,7 @@ public class GymBlockItf : CharacterItf
     //------------------------------------------------------------------------
     // Constructor
     //------------------------------------------------------------------------
-    public GymBlockItf(GymBlockModel mdl)
+    public GymBlockItf(Node3D mdl)
     {
         model = mdl;
 

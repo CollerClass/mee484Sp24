@@ -9,7 +9,7 @@ using System;
 public partial class MannequinScene : Node3D
 {
 	// When new models are created, they should be added
-	GymBlockModel modelGymBlock;
+	Node3D modelGymBlock;
 	enum ModelType{
 		GymBlock,
 	}
@@ -49,12 +49,12 @@ public partial class MannequinScene : Node3D
 		switch(modelType){
 			// when new models are created, add them to the list
 			case ModelType.GymBlock:
-				modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+				modelGymBlock = GetNode<Node3D>("GymBlockModel");
 				modelItf = new GymBlockItf(modelGymBlock);
 				break;
 
 			default:
-				modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+				modelGymBlock = GetNode<Node3D>("GymBlockModel");
 				modelItf = new GymBlockItf(modelGymBlock);
 				break;
 		}
