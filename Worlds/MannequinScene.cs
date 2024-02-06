@@ -1,16 +1,30 @@
 //============================================================================
-// GymnastScene.cs   Scene for simulating the spinning gymnast
+// MannequinScene.cs   Scene for developing and testing gymnast models, and
+//           and gymnast actions (choreography, controllers, etc). The model
+//           here is disconnected from the physics engine.
 //============================================================================
 using Godot;
 using System;
 
 public partial class MannequinScene : Node3D
 {
-	GymBlockModel model;
+	// When new models are created, they should be added
+	Node3D model;
+	enum ModelType{
+		GymBlock,
+		XBot,
+	}
+	ModelType modelType;
 	CharacterItf  modelItf;
 
 	ManneControl mcObject;
 
+	// When new ManneControl classes are created, they should be added to
+	// this list. 
+	enum ManneControlType{
+		SimpleBC,
+	}
+	ManneControlType mcType;
 	
 	CamRig cam;
 	float longitudeDeg;
@@ -25,14 +39,46 @@ public partial class MannequinScene : Node3D
 	//------------------------------------------------------------------------
 	public override void _Ready()
 	{
-		//#####################################
-		//#### Only one model and one ManneControl hard coded in for now
-		//#### need to have this part choose from a selection
-		model = GetNode<GymBlockModel>("GymBlockModel");
-		modelItf = new GymBlockItf(model);
+		// Specify the model type here
+		// modelType = ModelType.GymBlock;
+		modelType = ModelType.XBot;
 
-		mcObject = new MCTestSimpleBC(modelItf);
-		//######################################
+		// Specify the class for mannequin interaction here
+		mcType = ManneControlType.SimpleBC;
+
+
+		//----------------- Mechanism for model and control specification
+		switch(modelType){
+			// when new models are created, add them to the list
+			case ModelType.GymBlock:
+				model = GetNode<Node3D>("GymBlockModel");
+				modelItf = new GymBlockItf(model);
+				break;
+			case ModelType.XBot:
+				model = GetNode<Node3D>("XBotModel");
+				modelItf = new MixamoItf(model);
+				break;
+			default:
+				model = GetNode<Node3D>("GymBlockModel");
+				modelItf = new GymBlockItf(model);
+				break;
+		}
+		// modelGymBlock = GetNode<GymBlockModel>("GymBlockModel");
+		// modelItf = new GymBlockItf(modelGymBlock);
+		model.Show();
+
+		switch(mcType){
+			//## when new ManneControl classes created, add them to the list
+			case ManneControlType.SimpleBC:
+				mcObject = new MCTestSimpleBC(modelItf);
+				break;
+
+			default:
+				GD.PrintErr("MannequinScene: mcType not is switch list.");
+				mcObject = new MCTestSimpleBC(modelItf);
+				break;
+		}
+		//------------------
 
 		float cgHeight = 1.3f;
 		camTg = new Vector3(0.0f, cgHeight, 0.0f);
@@ -59,4 +105,14 @@ public partial class MannequinScene : Node3D
 	{
 		mcObject.Process(delta);
 	}
+
+    //------------------------------------------------------------------------
+    // _PhysicsProcess:
+    //------------------------------------------------------------------------
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+
+		mcObject.PhysicsProcess(delta);
+    }
 }
