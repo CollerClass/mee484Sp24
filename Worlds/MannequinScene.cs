@@ -40,8 +40,8 @@ public partial class MannequinScene : Node3D
 	public override void _Ready()
 	{
 		// Specify the model type here
-		// modelType = ModelType.GymBlock;
-		modelType = ModelType.XBot;
+		modelType = ModelType.GymBlock;
+		// modelType = ModelType.XBot;
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;

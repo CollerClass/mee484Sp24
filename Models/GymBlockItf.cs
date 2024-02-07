@@ -55,6 +55,12 @@ public class GymBlockItf : CharacterItf
     }
 
 
+    //------------ Methods for the left shoulder -----------------------------
+    public override void SetShoulderLQuat(Quaternion q)
+    {
+        //base.SetShoulderLQuat(q);
+        joint[jShL].Quaternion = q;
+    }
     public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
     {
         // uVec.X = ax;   uVec.Y = ay;   uVec.Z = az;
@@ -63,6 +69,29 @@ public class GymBlockItf : CharacterItf
         QuatCalcEulerYXZ(ax,ay,az);
         joint[jShL].Quaternion = qResult;
     }
+    public override void SetShoulderLAngleYZX(float ax, float ay, float az)
+    {
+        QuatCalcEulerYZX(ax,ay,az);
+        joint[jShL].Quaternion = qResult;
+    }
+
+    //------------ Methods for the left shoulder -----------------------------
+    public override void SetShoulderRQuat(Quaternion q)
+    {
+        //base.SetShoulderRQuat(q);
+        joint[jShR].Quaternion = q;
+    }
+    public override void SetShoulderRAngleYXZ(float ax, float ay, float az)
+    {
+        QuatCalcEulerYXZ(ax,ay,az);
+        joint[jShR].Quaternion = qResult;
+    }
+    public override void SetShoulderRAngleYZX(float ax, float ay, float az)
+    {
+        QuatCalcEulerYZX(ax,ay,az);
+        joint[jShR].Quaternion = qResult;
+    }
+
 
     public override void SetElbowLAngle(float angle)
     {
