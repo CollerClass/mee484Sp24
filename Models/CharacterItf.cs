@@ -67,7 +67,14 @@ public abstract class CharacterItf
     {
     }
 
+    public virtual void SetElbowRAngle(float angle)
+    {
+    }
+
     public virtual void SetSimpleWaistTwist(float angle)
+    {
+    }
+    public virtual void SetSimpleMidTorsoTwist(float angle)
     {
     }
 
