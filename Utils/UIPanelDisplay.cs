@@ -114,5 +114,61 @@ public partial class UIPanelDisplay : PanelContainer
         //GD.Print(fStrings[idx]);
     }
 
-	
+    //------------------------------------------------------------------------
+    // SetColor:  Sets the color of a label and/or value at the provided index
+    //------------------------------------------------------------------------
+    public void SetColor(int idx, Color cc, bool lbl=true, bool val=true)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(lbl)
+            labels[idx].Set("theme_override_colors/font_color",cc);
+        if(val)
+            values[idx].Set("theme_override_colors/font_color",cc);
+    }
+
+	public void SetWhite(int idx, bool lbl=true, bool val=true)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(lbl)
+            labels[idx].Set("theme_override_colors/font_color",new Color(1,1,1));
+        if(val)
+            values[idx].Set("theme_override_colors/font_color",new Color(1,1,1));
+    }
+
+    public void SetYellow(int idx, bool lbl=true, bool val=true)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(lbl)
+            labels[idx].Set("theme_override_colors/font_color",new Color(1,1,0));
+        if(val)
+            values[idx].Set("theme_override_colors/font_color",new Color(1,1,0));
+    }
+
+    public void SetMagenta(int idx, bool lbl=true, bool val=true)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(lbl)
+            labels[idx].Set("theme_override_colors/font_color",new Color(1,0,1));
+        if(val)
+            values[idx].Set("theme_override_colors/font_color",new Color(1,0,1));
+    }
+
+    public void SetCyan(int idx, bool lbl=true, bool val=true)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(lbl)
+            labels[idx].Set("theme_override_colors/font_color",new Color(0,1,1));
+        if(val)
+            values[idx].Set("theme_override_colors/font_color",new Color(0,1,1));
+    }
 }
