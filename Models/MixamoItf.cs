@@ -64,24 +64,15 @@ public class MixamoItf : CharacterItf
             qGl[i] = new Quaternion(tr.Basis); 
         }
 
-        // Transform3D tr1, trG;
-        // Quaternion q1, q2, qG;
-        // q1 = skel.GetBonePoseRotation(bIdx[jShL]);
-        // GD.Print("Pose quat " + q1);
-        // tr1 = skel.GetBoneRest(bIdx[jShL]);
-        // GD.Print("Rest position " + tr1.Origin);
-        // q2 = new Quaternion(tr1.Basis);
-        // GD.Print("Rest quat " + q2);
-        // trG = skel.GetBoneGlobalRest(bIdx[jShL]);
-        // qG = new Quaternion(trG.Basis);
-        // GD.Print("Global position " + trG.Origin);
-        // GD.Print("Global quat " + qG);
-
-        // qR[jShL] = q2;
-        // qGl[jShL] = qG;
     }
 
-
+    //------------ Methods for the left shoulder -----------------------------
+    public override void SetShoulderLQuat(Quaternion q)
+    {
+        //base.SetShoulderLQuat(q);
+        quat[jShL] = q;
+        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
+    }
     public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
     {
         //base.SetShoulderLAngleYXZ(ax, ay, az);
@@ -90,7 +81,6 @@ public class MixamoItf : CharacterItf
         quat[jShL] = qR[jShL]*qGl[jShL].Inverse()*qResult*qGl[jShL];
         skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
     }
-
     public override void SetShoulderLAngleYZX(float ax, float ay, float az)
     {
         //base.SetShoulderLAngleYZX(ax, ay, az);
@@ -100,6 +90,13 @@ public class MixamoItf : CharacterItf
         skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
     }
 
+    //------------ Methods for the right shoulder ----------------------------
+    public override void SetShoulderRQuat(Quaternion q)
+    {
+        //base.SetShoulderRQuat(q);
+        quat[jShR] = q;
+        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
+    }
     public override void SetShoulderRAngleYXZ(float ax, float ay, float az)
     {
         //base.SetShoulderRAngleYXZ(ax, ay, az);
@@ -108,7 +105,6 @@ public class MixamoItf : CharacterItf
         quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
         skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
     }
-
     public override void SetShoulderRAngleYZX(float ax, float ay, float az)
     {
         //base.SetShoulderRAngleYZX(ax, ay, az);
