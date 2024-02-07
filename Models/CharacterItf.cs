@@ -23,9 +23,19 @@ public abstract class CharacterItf
     {
         // in the future, I don't want to do this with a constructor
         qA = new Quaternion(Vector3.Up, ay);
-        qB = new Quaternion(Vector3.Right, ax);  //right in positive x direction
-        qC = new Quaternion(Vector3.Back, az);   // back in positive z direction
+        qB = new Quaternion(Vector3.Right, ax);//right in positive x direction
+        qC = new Quaternion(Vector3.Back, az); // back in positive z direction
 
+        qResult = qA*qB*qC;
+    }
+
+    protected void QuatCalcEulerYZX(float ax, float ay, float az)
+    {
+        // in the future, I don't want to do this with a constructor
+        qA = new Quaternion(Vector3.Up, ay);
+        qB = new Quaternion(Vector3.Back, az); // back in positive z direction
+        qC = new Quaternion(Vector3.Right, ax);//right in positive x direction
+    
         qResult = qA*qB*qC;
     }
 
@@ -42,6 +52,14 @@ public abstract class CharacterItf
     }
 
     public virtual void SetShoulderRAngleYZX(float ax, float ay, float az)
+    {
+    }
+
+    public virtual void SetShoulderLQuat(Quaternion q)
+    {
+    }
+
+    public virtual void SetShoulderRQuat(Quaternion q)
     {
     }
 

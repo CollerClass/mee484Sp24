@@ -54,21 +54,31 @@ public class MixamoItf : CharacterItf
         bIdx[jHpR] = skel.FindBone("mixamorig_RightUpLeg");
         bIdx[jKnR] = skel.FindBone("mixamorig_RightLeg");
 
-        Transform3D tr1, trG;
-        Quaternion q1, q2, qG;
-        q1 = skel.GetBonePoseRotation(bIdx[jShL]);
-        GD.Print("Pose quat " + q1);
-        tr1 = skel.GetBoneRest(bIdx[jShL]);
-        GD.Print("Rest position " + tr1.Origin);
-        q2 = new Quaternion(tr1.Basis);
-        GD.Print("Rest quat " + q2);
-        trG = skel.GetBoneGlobalRest(bIdx[jShL]);
-        qG = new Quaternion(trG.Basis);
-        GD.Print("Global position " + trG.Origin);
-        GD.Print("Global quat " + qG);
+        Transform3D tr;
+        int i;
+        for(i=0; i<nJoints; ++i){
+            tr = skel.GetBoneRest(bIdx[i]);
+            qR[i] = new Quaternion(tr.Basis);
+            quat[i] = qR[i];
+            tr = skel.GetBoneGlobalRest(bIdx[i]);
+            qGl[i] = new Quaternion(tr.Basis); 
+        }
 
-        qR[jShL] = q2;
-        qGl[jShL] = qG;
+        // Transform3D tr1, trG;
+        // Quaternion q1, q2, qG;
+        // q1 = skel.GetBonePoseRotation(bIdx[jShL]);
+        // GD.Print("Pose quat " + q1);
+        // tr1 = skel.GetBoneRest(bIdx[jShL]);
+        // GD.Print("Rest position " + tr1.Origin);
+        // q2 = new Quaternion(tr1.Basis);
+        // GD.Print("Rest quat " + q2);
+        // trG = skel.GetBoneGlobalRest(bIdx[jShL]);
+        // qG = new Quaternion(trG.Basis);
+        // GD.Print("Global position " + trG.Origin);
+        // GD.Print("Global quat " + qG);
+
+        // qR[jShL] = q2;
+        // qGl[jShL] = qG;
     }
 
 
@@ -77,13 +87,34 @@ public class MixamoItf : CharacterItf
         //base.SetShoulderLAngleYXZ(ax, ay, az);
         
         QuatCalcEulerYXZ(ax,ay,az);
-        Quaternion qq = qGl[jShL].Inverse()*qResult*qGl[jShL]*qR[jShL];
-        skel.SetBonePoseRotation(bIdx[jShL], qq);
+        quat[jShL] = qR[jShL]*qGl[jShL].Inverse()*qResult*qGl[jShL];
+        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
     }
 
     public override void SetShoulderLAngleYZX(float ax, float ay, float az)
     {
         //base.SetShoulderLAngleYZX(ax, ay, az);
-        // nothing yet
+        
+        QuatCalcEulerYZX(ax,ay,az);
+        quat[jShL] = qR[jShL]*qGl[jShL].Inverse()*qResult*qGl[jShL];
+        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
+    }
+
+    public override void SetShoulderRAngleYXZ(float ax, float ay, float az)
+    {
+        //base.SetShoulderRAngleYXZ(ax, ay, az);
+        
+        QuatCalcEulerYXZ(ax,ay,az);
+        quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
+        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
+    }
+
+    public override void SetShoulderRAngleYZX(float ax, float ay, float az)
+    {
+        //base.SetShoulderRAngleYZX(ax, ay, az);
+        
+        QuatCalcEulerYZX(ax,ay,az);
+        quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
+        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
     }
 }
