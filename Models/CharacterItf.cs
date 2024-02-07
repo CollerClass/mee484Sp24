@@ -71,4 +71,19 @@ public abstract class CharacterItf
     {
     }
 
+    public virtual void SetHipLAngle(Quaternion q)
+    {
+    }
+
+    public virtual void SetHipRAngle(Quaternion q)
+    {
+    }
+
+    public virtual void SetKneeLAngle(float angle)
+    {
+    }
+
+    public virtual void SetKneeRAngle(float angle)
+    {
+    }
 }
