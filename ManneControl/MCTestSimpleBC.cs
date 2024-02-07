@@ -58,8 +58,10 @@ public class MCTestSimpleBC : ManneControl
         }
 
         //modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
-        modelItf.SetShoulderLAngleYZX(angShL_X, angShL_Y, angShL_Z);
-        modelItf.SetShoulderRAngleYZX(angShL_X, angShL_Y, angShL_Z);
+        //modelItf.SetShoulderLAngleYZX(angShL_X, angShL_Y, angShL_Z);
+        //modelItf.SetShoulderRAngleYZX(angShL_X, angShL_Y, angShL_Z);
+
+        modelItf.SetElbowLAngle(angShL_Z);
 
         time += delta;
     }

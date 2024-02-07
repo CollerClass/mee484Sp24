@@ -113,4 +113,14 @@ public class MixamoItf : CharacterItf
         quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
         skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
     }
+
+ //------------ Methods for the Left Elbow  ----------------------------
+    public override void SetElbowLAngle(float angle)
+    {
+        Vector3 elbowNormal = qGl[jEbL].GetAxis().Normalized();
+        Quaternion q = new Quaternion(elbowNormal,angle);
+        quat[jEbL] = q;
+        skel.SetBonePoseRotation(bIdx[jEbL], quat[jEbL]);
+    }
+   
 }
