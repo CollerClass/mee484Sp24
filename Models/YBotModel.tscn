@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgnuhtkr6oylv"]
+
+[ext_resource type="PackedScene" uid="uid://ycsww504o77" path="res://Models/YBot.gltf" id="1_epcir"]
+[ext_resource type="Script" path="res://Models/YBotModel.cs" id="2_qrm7g"]
+
+[node name="YBotModel" instance=ExtResource("1_epcir")]
+script = ExtResource("2_qrm7g")
