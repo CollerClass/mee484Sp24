@@ -42,8 +42,9 @@ public partial class MannequinScene : Node3D
 	{
 		// Specify the model type here
 		// modelType = ModelType.GymBlock;
-		//modelType = ModelType.XBot;
-		modelType = ModelType.YBot;
+		modelType = ModelType.XBot;
+		//modelType = ModelType.YBot;
+
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
