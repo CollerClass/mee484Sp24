@@ -123,4 +123,62 @@ public class MixamoItf : CharacterItf
         skel.SetBonePoseRotation(bIdx[jEbL], quat[jEbL]);
     }
    
+ //------------ Methods for the Right Elbow  ----------------------------
+    public override void SetElbowRAngle(float angle)
+    {
+        // Vector3 elbowNormal = qR[jEbL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(Vector3.Back,angle);
+        quat[jEbR] = q;
+        skel.SetBonePoseRotation(bIdx[jEbR], quat[jEbR]);
+    }
+
+ //------------ Methods for the Waist  ----------------------------
+    public override void SetSimpleWaistTwist(float angle)
+    {
+        // Vector3 elbowNormal = qR[jEbL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(Vector3.Right,angle);
+        quat[jWst] = q;
+        skel.SetBonePoseRotation(bIdx[jWst], quat[jWst]);
+    }
+
+ //------------ Methods for the Mid Torso  ----------------------------
+    public override void SetSimpleMidTorsoTwist(float angle)
+    {
+        // Vector3 elbowNormal = qR[jEbL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(Vector3.Right,angle);
+        quat[jTso] = q;
+        skel.SetBonePoseRotation(bIdx[jTso], quat[jTso]);
+    }
+
+ //------------ Methods for the Left Hip  ----------------------------
+    public override void SetHipLAngle(Quaternion q)
+    {
+        quat[jHpL] = q;
+        skel.SetBonePoseRotation(bIdx[jHpL], quat[jHpL]);
+    }
+
+
+ //------------ Methods for the Left Hip  ----------------------------
+    public override void SetHipRAngle(Quaternion q)
+    {
+        quat[jHpR] = q;
+        skel.SetBonePoseRotation(bIdx[jHpR], quat[jHpR]);
+    }
+
+ //------------ Methods for the Left Knee  ----------------------------
+    public override void SetKneeLAngle(float angle)
+    {
+        Quaternion q = new Quaternion(Vector3.Right,angle);
+        quat[jKnL] = q;
+        skel.SetBonePoseRotation(bIdx[jKnL], quat[jKnL]);
+    }
+   
+ //------------ Methods for the Right Knee  ----------------------------
+    public override void SetKneeRAngle(float angle)
+    {
+        Quaternion q = new Quaternion(Vector3.Right,angle);
+        quat[jKnR] = q;
+        skel.SetBonePoseRotation(bIdx[jKnR], quat[jKnR]);
+    }
+
 }
