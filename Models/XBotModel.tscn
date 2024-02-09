@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnwloj3tg4u5b"]
 
-[ext_resource type="PackedScene" path="res://Models/xBot.gltf" id="1_1gilo"]
+[ext_resource type="PackedScene" uid="uid://67xx1lhcx1dl" path="res://Models/xBot.gltf" id="1_1gilo"]
 [ext_resource type="Script" path="res://Models/XBotModel.cs" id="2_cv67p"]
 
 [node name="XBotModel" instance=ExtResource("1_1gilo")]
