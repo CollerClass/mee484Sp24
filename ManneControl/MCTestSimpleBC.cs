@@ -57,9 +57,9 @@ public class MCTestSimpleBC : ManneControl
             angShL_X -= dAngle;
         }
 
-        modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
-        //modelItf.SetShoulderLAngleYZX(angShL_X, angShL_Y, angShL_Z);
-        //modelItf.SetShoulderRAngleYZX(angShL_X, angShL_Y, angShL_Z);
+        //modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
+        modelItf.SetShoulderLAngleYZX(angShL_X, angShL_Y, angShL_Z);
+        modelItf.SetShoulderRAngleYZX(angShL_X, angShL_Y, angShL_Z);
 
         time += delta;
     }
