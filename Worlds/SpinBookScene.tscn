@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cac68e07pkls4"]
+[gd_scene load_steps=12 format=3 uid="uid://cac68e07pkls4"]
 
 [ext_resource type="PackedScene" uid="uid://r4gsje2eu4of" path="res://Models/SpinBookModel.tscn" id="1_fvm0b"]
 [ext_resource type="Script" path="res://Worlds/SpinBookScene.cs" id="1_lm1k6"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_xekkp"]
 [ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="3_2wwqn"]
-[ext_resource type="PackedScene" path="res://Utils/UIPanelDisplay.tscn" id="5_6dl3i"]
+[ext_resource type="PackedScene" uid="uid://uuj16p5aw6lj" path="res://Utils/UIPanelDisplay.tscn" id="5_6dl3i"]
+[ext_resource type="PackedScene" uid="uid://dudtnnv6f1pi0" path="res://Utils/UIPlotter.tscn" id="6_cedfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lwh2n"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -60,4 +61,18 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
 [node name="DatDisplay" parent="UINode/MarginContainer" instance=ExtResource("5_6dl3i")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="UINode"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 350.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="UIPlotter" parent="UINode/MarginContainer2" instance=ExtResource("6_cedfs")]
 layout_mode = 2
