@@ -7,6 +7,7 @@ using System;
 public partial class UIPlotter : PanelContainer
 {
 	Line2D curve1;
+	Vector2 windowSize;
 
 	Vector2 pt;
 
@@ -18,6 +19,8 @@ public partial class UIPlotter : PanelContainer
 		GD.Print("UIPlotter is alive");
 		curve1 = GetNode<Line2D>("Curve1");
 
+		windowSize = Size;
+		GD.Print("windowSize = " + windowSize);
 	}
 
 	//------------------------------------------------------------------------

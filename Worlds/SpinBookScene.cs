@@ -33,6 +33,8 @@ public partial class SpinBookScene : Node3D
 	int dispCtr;
 	int dispTHold;
 
+	UIPlotter plotter;
+
 
 	//------------------------------------------------------------------------
 	// _Ready: Called once when the node enters the scene tree for the first 
@@ -73,6 +75,15 @@ public partial class SpinBookScene : Node3D
         datDisplay.SetDigitsAfterDecimal(2,2);
 		dispCtr = 0;
 		dispTHold = 4;
+
+		// set up the plotter
+		plotter = GetNode<UIPlotter>("UINode/MarginContainer2/UIPlotter");
+		// for testing purposes....
+		plotter.AddDataPoint(0,10.0f, 100.0f);
+		plotter.AddDataPoint(0,50.0f, 160.0f);
+		plotter.AddDataPoint(0,100.0f, 90.0f);
+		plotter.AddDataPoint(0,200.0f, 65.0f);
+		plotter.AddDataPoint(0,310.0f, 5.0f);
 
 		// set up the simulation
 		sim = new SpinBook();
