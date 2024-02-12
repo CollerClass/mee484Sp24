@@ -9,7 +9,7 @@ public abstract class CharacterItf
     private Quaternion qA;
     private Quaternion qB;
     private Quaternion qC;
-    protected Quaternion qResult;
+    public Quaternion qResult;
 
     protected Vector3 uVec;
 
@@ -29,7 +29,7 @@ public abstract class CharacterItf
         qResult = qA*qB*qC;
     }
 
-    protected void QuatCalcEulerYZX(float ax, float ay, float az)
+    public void QuatCalcEulerYZX(float ax, float ay, float az)
     {
         // in the future, I don't want to do this with a constructor
         qA = new Quaternion(Vector3.Up, ay);
