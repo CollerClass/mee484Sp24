@@ -13,6 +13,7 @@ public partial class MannequinScene : Node3D
 	enum ModelType{
 		GymBlock,
 		XBot,
+		YBot
 	}
 	ModelType modelType;
 	CharacterItf  modelItf;
@@ -41,7 +42,8 @@ public partial class MannequinScene : Node3D
 	{
 		// Specify the model type here
 		// modelType = ModelType.GymBlock;
-		modelType = ModelType.XBot;
+		//modelType = ModelType.XBot;
+		modelType = ModelType.YBot;
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
@@ -56,6 +58,10 @@ public partial class MannequinScene : Node3D
 				break;
 			case ModelType.XBot:
 				model = GetNode<Node3D>("XBotModel");
+				modelItf = new MixamoItf(model);
+				break;
+			case ModelType.YBot:
+				model = GetNode<Node3D>("YBotModel");
 				modelItf = new MixamoItf(model);
 				break;
 			default:
