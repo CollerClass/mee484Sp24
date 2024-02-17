@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://rgp7yfy2i14u"]
+
+[ext_resource type="Script" path="res://Utils/VectorPointer.cs" id="1_htxv0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ykfvo"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+
+[node name="VectorPointer" type="Node3D"]
+script = ExtResource("1_htxv0")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_ykfvo")
