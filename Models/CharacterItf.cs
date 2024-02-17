@@ -93,4 +93,9 @@ public abstract class CharacterItf
     public virtual void SetKneeRAngle(float angle)
     {
     }
+
+    public virtual Quaternion GetJointQuat(JointType jointType)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -39,7 +39,7 @@ public class MCTestSimpleBC : ManneControl
 
         //Sets desired joint to be adjusted equal to a number pressed on the keypad
         if(Input.IsKeyPressed(Key.Key0)){
-            selectedJoint = jointType.ShoulderL;
+            selectedJoint = JointType.ShoulderL;
         }
 
         if(Input.IsKeyPressed(Key.Key1)){
