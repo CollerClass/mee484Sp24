@@ -3,6 +3,8 @@
 //============================================================================
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 public abstract class CharacterItf
 {
@@ -12,6 +14,17 @@ public abstract class CharacterItf
     public Quaternion qResult;
 
     protected Vector3 uVec;
+
+    public static ImmutableDictionary<JointType,Vector3> HingeVectors = ImmutableDictionary.CreateRange(
+        new KeyValuePair<JointType,Vector3>[] {
+            KeyValuePair.Create(JointType.ElbowL,Vector3.Back),
+            KeyValuePair.Create(JointType.ElbowR,Vector3.Back),
+            KeyValuePair.Create(JointType.KneeL,Vector3.Right),
+            KeyValuePair.Create(JointType.KneeR,Vector3.Right),
+            KeyValuePair.Create(JointType.Torso,Vector3.Right),
+            KeyValuePair.Create(JointType.Waist,Vector3.Right),
+        }
+    );
 
     public CharacterItf()
     {
@@ -95,6 +108,11 @@ public abstract class CharacterItf
     }
 
     public virtual Quaternion GetJointQuat(JointType jointType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void SetJointQuat(JointType jointType, Quaternion newQuat)
     {
         throw new NotImplementedException();
     }

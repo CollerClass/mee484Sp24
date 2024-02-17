@@ -94,4 +94,9 @@ public class GymBlockItf : CharacterItf
     {
         return joint[jointType].Quaternion;
     }
+
+    public override void SetJointQuat(JointType jointType, Quaternion newQuat)
+    {
+        joint[jointType].Quaternion = newQuat;
+    }
 }
