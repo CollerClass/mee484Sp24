@@ -13,19 +13,7 @@ public class MCTestSimpleBC : ManneControl
     float angShL_Y;
     float angShL_Z;
     float dAngle;
-    jointType selectedJoint;
-    enum jointType{
-        ShoulderL,
-        ShoulderR,
-        ElbowL,
-        ElbowR,
-        Waist,
-        Torso,
-        HipL,
-        HipR,
-        KneeL,
-        KneeR,
-    }
+    JointType selectedJoint;
 
     //------------------------------------------------------------------------
     // Constructor
@@ -33,7 +21,7 @@ public class MCTestSimpleBC : ManneControl
     public MCTestSimpleBC(CharacterItf mitf)
     {
         modelItf = mitf;
-        selectedJoint = jointType.Waist; //sets defalut joint to waist
+        selectedJoint = JointType.Waist; //sets defalut joint to waist
         angShL_X = angShL_Y = angShL_Z = 0.0f;
         dAngle = Mathf.DegToRad(2.0f);
 
@@ -55,39 +43,39 @@ public class MCTestSimpleBC : ManneControl
         }
 
         if(Input.IsKeyPressed(Key.Key1)){
-            selectedJoint = jointType.ShoulderR;
+            selectedJoint = JointType.ShoulderR;
         }
 
         if(Input.IsKeyPressed(Key.Key2)){
-            selectedJoint = jointType.ElbowL;
+            selectedJoint = JointType.ElbowL;
         }
 
         if(Input.IsKeyPressed(Key.Key3)){
-            selectedJoint = jointType.ElbowR;
+            selectedJoint = JointType.ElbowR;
         }
 
         if(Input.IsKeyPressed(Key.Key4)){
-            selectedJoint = jointType.Waist;
+            selectedJoint = JointType.Waist;
         }
 
         if(Input.IsKeyPressed(Key.Key5)){
-            selectedJoint = jointType.Torso;
+            selectedJoint = JointType.Torso;
         }
 
         if(Input.IsKeyPressed(Key.Key6)){
-            selectedJoint = jointType.HipL;
+            selectedJoint = JointType.HipL;
         }
 
         if(Input.IsKeyPressed(Key.Key7)){
-            selectedJoint = jointType.HipR;
+            selectedJoint = JointType.HipR;
         }
 
         if(Input.IsKeyPressed(Key.Key8)){
-            selectedJoint = jointType.KneeL;
+            selectedJoint = JointType.KneeL;
         }
 
         if(Input.IsKeyPressed(Key.Key9)){
-            selectedJoint = jointType.KneeR;
+            selectedJoint = JointType.KneeR;
         }
 
 
@@ -116,31 +104,31 @@ public class MCTestSimpleBC : ManneControl
         modelItf.QuatCalcEulerYZX(angShL_X,angShL_Y,angShL_Z);
         
         switch (selectedJoint){
-            case jointType.ShoulderL:
+            case JointType.ShoulderL:
                 modelItf.SetShoulderLQuat(modelItf.qResult);
                 break;
-            case jointType.ShoulderR:
+            case JointType.ShoulderR:
                 modelItf.SetShoulderRQuat(modelItf.qResult);
                 break;
-            case jointType.ElbowL:
+            case JointType.ElbowL:
                 modelItf.SetElbowLAngle(angShL_Y);
                 break;
-            case jointType.ElbowR:
+            case JointType.ElbowR:
                 modelItf.SetElbowRAngle(angShL_Y);
                 break;
-            case jointType.Torso:
+            case JointType.Torso:
                 modelItf.SetSimpleMidTorsoTwist(angShL_Z);
                 break;
-            case jointType.HipL:
+            case JointType.HipL:
                 modelItf.SetHipLAngle(modelItf.qResult);
                 break;
-            case jointType.HipR:
+            case JointType.HipR:
                 modelItf.SetHipRAngle(modelItf.qResult);
                 break;
-            case jointType.KneeL:
+            case JointType.KneeL:
                 modelItf.SetKneeLAngle(angShL_Z);
                 break;
-            case jointType.KneeR:
+            case JointType.KneeR:
                 modelItf.SetKneeRAngle(angShL_Z);
                 break;  
             default:
