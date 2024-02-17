@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cac68e07pkls4"]
+[gd_scene load_steps=13 format=3 uid="uid://cac68e07pkls4"]
 
 [ext_resource type="PackedScene" uid="uid://r4gsje2eu4of" path="res://Models/SpinBookModel.tscn" id="1_fvm0b"]
 [ext_resource type="Script" path="res://Worlds/SpinBookScene.cs" id="1_lm1k6"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_xekkp"]
 [ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="3_2wwqn"]
+[ext_resource type="PackedScene" uid="uid://rgp7yfy2i14u" path="res://Utils/VectorPointer.tscn" id="3_w3bka"]
 [ext_resource type="PackedScene" uid="uid://uuj16p5aw6lj" path="res://Utils/UIPanelDisplay.tscn" id="5_6dl3i"]
 [ext_resource type="PackedScene" uid="uid://dudtnnv6f1pi0" path="res://Utils/UIPlotter.tscn" id="6_cedfs"]
 
@@ -39,6 +40,9 @@ shadow_enabled = true
 environment = SubResource("Environment_b6h66")
 
 [node name="SpinBookModel" parent="." instance=ExtResource("1_fvm0b")]
+
+[node name="MyVector" parent="." instance=ExtResource("3_w3bka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521258, 0)
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_kmrrx")

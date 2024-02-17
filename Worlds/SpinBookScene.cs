@@ -21,6 +21,7 @@ public partial class SpinBookScene : Node3D
 	double time;
 
 	private SpinBookModel model;       // reference to the graphical model
+	private VectorPointer myVector;
 
 	CamRig cam;
 	float longitudeDeg;
@@ -48,6 +49,11 @@ public partial class SpinBookScene : Node3D
 		camTg = new Vector3(0.0f, bookHeight, 0.0f);
 		model = GetNode<SpinBookModel>("SpinBookModel");
 		model.SetCGLoc(camTg);
+
+		// get the vector
+		myVector = GetNode<VectorPointer>("MyVector");
+		myVector.SetBodyRadius(0.05f);
+		myVector.SetLength(1.0f);
 
 		// Set up the camera rig
 		longitudeDeg = 30.0f;
@@ -121,6 +127,9 @@ public partial class SpinBookScene : Node3D
 			dispCtr = 0;
 		}
 		++dispCtr;
+
+		// update length of vector
+		myVector.SetLength((float)(sim.omega2/3.0));
 	}
 
 	//------------------------------------------------------------------------
