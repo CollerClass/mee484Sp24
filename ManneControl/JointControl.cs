@@ -4,6 +4,7 @@
 //============================================================================
 using Godot;
 using System;
+using System.Dynamic;
 
 public class JointControl : ManneControl
 {
@@ -76,6 +77,10 @@ public class JointControl : ManneControl
 
         if(Input.IsKeyPressed(Key.Key9)){
             selectedJoint = JointType.KneeR;
+        }
+
+        if(Input.IsKeyPressed(Key.R)){
+            modelItf.ResetAllJoints();
         }
 
         angleX = angleY = angleZ = 0.0f;

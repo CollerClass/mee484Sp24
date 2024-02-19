@@ -90,6 +90,14 @@ public class GymBlockItf : CharacterItf
         joint[JointType.Waist].Rotation = new Vector3(0.0f, angle, 0.0f);
     }
 
+    public override void ResetAllJoints()
+    {
+        foreach(var bone in joint)
+        {
+            bone.Value.Quaternion = Quaternion.Identity;
+        }
+    }
+
     public override Quaternion GetJointQuat(JointType jointType)
     {
         return joint[jointType].Quaternion;

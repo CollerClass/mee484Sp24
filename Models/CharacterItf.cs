@@ -107,6 +107,10 @@ public abstract class CharacterItf
     {
     }
 
+    public virtual void ResetAllJoints()
+    {
+    }
+
     public virtual Quaternion GetJointQuat(JointType jointType)
     {
         throw new NotImplementedException();

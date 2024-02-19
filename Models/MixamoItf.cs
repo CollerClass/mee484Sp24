@@ -4,6 +4,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class MixamoItf : CharacterItf
 {
@@ -167,7 +168,15 @@ public class MixamoItf : CharacterItf
         skel.SetBonePoseRotation(bIdx[JointType.KneeR], quat[JointType.KneeR]);
     }
 
-
+ //------------ Methods Reset all joints  ----------------------------
+    public override void ResetAllJoints()
+    {
+        foreach(var bone in qR)
+        {
+            quat[bone.Key] = bone.Value;
+            skel.SetBonePoseRotation(bIdx[bone.Key], quat[bone.Key]);
+        }
+    }
     public override Quaternion GetJointQuat(JointType jointType)
     {
         return quat[jointType];
