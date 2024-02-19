@@ -98,6 +98,10 @@ public class GymBlockItf : CharacterItf
         }
     }
 
+    public override void ResetJoint(JointType jointType) 
+    {
+        joint[jointType].Quaternion = Quaternion.Identity;
+    }
     public override Quaternion GetJointQuat(JointType jointType)
     {
         return joint[jointType].Quaternion;

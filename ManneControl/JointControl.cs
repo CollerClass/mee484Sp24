@@ -83,6 +83,10 @@ public class JointControl : ManneControl
             modelItf.ResetAllJoints();
         }
 
+        if(Input.IsKeyPressed(Key.T)){
+            modelItf.ResetJoint(selectedJoint);
+        }
+
         angleX = angleY = angleZ = 0.0f;
         // Takes inputs from key arrows. 
         if(Input.IsActionPressed("ui_right")){

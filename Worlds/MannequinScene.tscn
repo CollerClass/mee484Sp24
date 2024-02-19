@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://blxgponho1qji" path="res://Utils/CamRig.tscn" id="2_kvno1"]
 [ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="4_ssojr"]
 [ext_resource type="PackedScene" uid="uid://cnwloj3tg4u5b" path="res://Models/XBotModel.tscn" id="5_8x6l0"]
-[ext_resource type="PackedScene" path="res://Models/YBotModel.tscn" id="6_nwe5r"]
+[ext_resource type="PackedScene" uid="uid://cgnuhtkr6oylv" path="res://Models/YBotModel.tscn" id="6_nwe5r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_013tt"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

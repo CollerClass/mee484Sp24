@@ -177,6 +177,12 @@ public class MixamoItf : CharacterItf
             skel.SetBonePoseRotation(bIdx[bone.Key], quat[bone.Key]);
         }
     }
+
+    public override void ResetJoint(JointType jointType) 
+    {
+        quat[jointType] = qR[jointType];
+        skel.SetBonePoseRotation(bIdx[jointType], quat[jointType]);
+    }
     public override Quaternion GetJointQuat(JointType jointType)
     {
         return quat[jointType];
