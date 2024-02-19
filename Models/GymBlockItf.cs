@@ -25,7 +25,10 @@ public class GymBlockItf : CharacterItf
         string pathStr = "RootNode/PelvisNode/WaistJoint";
         joint.Add(JointType.Waist,model.GetNode<Node3D>(pathStr));
 
-        pathStr += "/MidTorsoJoint/ShoulderLJoint";
+        pathStr += "/MidTorsoJoint";
+        joint.Add(JointType.Torso,model.GetNode<Node3D>(pathStr));
+
+        pathStr += "/ShoulderLJoint";
         joint.Add(JointType.ShoulderL, model.GetNode<Node3D>(pathStr));
 
         pathStr += "/ElbowLJoint";
@@ -38,7 +41,17 @@ public class GymBlockItf : CharacterItf
         pathStr += "/ElbowRJoint";
         joint.Add(JointType.ElbowR, model.GetNode<Node3D>(pathStr));
 
-        //##### gotta keep going
+        pathStr = "RootNode/PelvisNode/HipLJoint";
+        joint.Add(JointType.HipL, model.GetNode<Node3D>(pathStr));
+
+        pathStr += "/KneeLJoint";
+        joint.Add(JointType.KneeL, model.GetNode<Node3D>(pathStr));
+
+        pathStr = "RootNode/PelvisNode/HipRJoint";
+        joint.Add(JointType.HipR, model.GetNode<Node3D>(pathStr));
+
+        pathStr += "/KneeRJoint";
+        joint.Add(JointType.KneeR, model.GetNode<Node3D>(pathStr));
     }
 
 
