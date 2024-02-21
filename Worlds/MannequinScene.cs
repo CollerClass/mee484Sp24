@@ -115,6 +115,7 @@ public partial class MannequinScene : Node3D
 		// margContBL = GetNode<MarginContainer>("UINode/MargContBL");
 		// margContBR = GetNode<MarginContainer>("UINode/MargContBR");
 
+		mcObject.Init2();
 	}
 
 	//------------------------------------------------------------------------
