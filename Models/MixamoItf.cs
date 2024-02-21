@@ -5,6 +5,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Collections.Immutable;
 
 public class MixamoItf : CharacterItf
 {
@@ -15,6 +16,17 @@ public class MixamoItf : CharacterItf
     Dictionary<JointType,Quaternion> quat; // quaternions relative to rest state
     Dictionary<JointType,Quaternion> qR;  // rest quaternions
     Dictionary<JointType,Quaternion> qGl;    // global quaternions
+
+    private static ImmutableDictionary<JointType,Vector3> hingeVectors = ImmutableDictionary.CreateRange(
+        new KeyValuePair<JointType,Vector3>[] {
+            KeyValuePair.Create(JointType.ElbowL,Vector3.Back),
+            KeyValuePair.Create(JointType.ElbowR,Vector3.Back),
+            KeyValuePair.Create(JointType.KneeL,Vector3.Right),
+            KeyValuePair.Create(JointType.KneeR,Vector3.Right),
+            KeyValuePair.Create(JointType.Torso,Vector3.Right),
+            KeyValuePair.Create(JointType.Waist,Vector3.Right),
+        }
+    );
 
     //------------------------------------------------------------------------
     // Constructor
@@ -52,6 +64,12 @@ public class MixamoItf : CharacterItf
         }
 
     }
+
+    public override ImmutableDictionary<JointType,Vector3> HingeVectors() 
+    {
+        return hingeVectors;
+    }
+
 
     //------------ Methods for the left shoulder -----------------------------
     public override void SetShoulderLQuat(Quaternion q)
@@ -105,7 +123,7 @@ public class MixamoItf : CharacterItf
     public override void SetElbowLAngle(float angle)
     {
         // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
-        Quaternion q = new Quaternion(HingeVectors[JointType.ElbowL],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.ElbowL],angle);
         quat[JointType.ElbowL] = q;
         skel.SetBonePoseRotation(bIdx[JointType.ElbowL], quat[JointType.ElbowL]);
     }
@@ -114,7 +132,7 @@ public class MixamoItf : CharacterItf
     public override void SetElbowRAngle(float angle)
     {
         // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
-        Quaternion q = new Quaternion(HingeVectors[JointType.ElbowR],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.ElbowR],angle);
         quat[JointType.ElbowR] = q;
         skel.SetBonePoseRotation(bIdx[JointType.ElbowR], quat[JointType.ElbowR]);
     }
@@ -123,7 +141,7 @@ public class MixamoItf : CharacterItf
     public override void SetSimpleWaistTwist(float angle)
     {
         // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
-        Quaternion q = new Quaternion(HingeVectors[JointType.Waist],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.Waist],angle);
         quat[JointType.Waist] = q;
         skel.SetBonePoseRotation(bIdx[JointType.Waist], quat[JointType.Waist]);
     }
@@ -132,7 +150,7 @@ public class MixamoItf : CharacterItf
     public override void SetSimpleMidTorsoTwist(float angle)
     {
         // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
-        Quaternion q = new Quaternion(HingeVectors[JointType.Torso],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.Torso],angle);
         quat[JointType.Torso] = q;
         skel.SetBonePoseRotation(bIdx[JointType.Torso], quat[JointType.Torso]);
     }
@@ -155,7 +173,7 @@ public class MixamoItf : CharacterItf
  //------------ Methods for the Left Knee  ----------------------------
     public override void SetKneeLAngle(float angle)
     {
-        Quaternion q = new Quaternion(HingeVectors[JointType.KneeL],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.KneeL],angle);
         quat[JointType.KneeL] = q;
         skel.SetBonePoseRotation(bIdx[JointType.KneeL], quat[JointType.KneeL]);
     }
@@ -163,7 +181,7 @@ public class MixamoItf : CharacterItf
  //------------ Methods for the Right Knee  ----------------------------
     public override void SetKneeRAngle(float angle)
     {
-        Quaternion q = new Quaternion(HingeVectors[JointType.KneeR],angle);
+        Quaternion q = new Quaternion(hingeVectors[JointType.KneeR],angle);
         quat[JointType.KneeR] = q;
         skel.SetBonePoseRotation(bIdx[JointType.KneeR], quat[JointType.KneeR]);
     }

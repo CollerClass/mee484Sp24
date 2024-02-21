@@ -4,6 +4,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 public class GymBlockItf : CharacterItf
 {
@@ -11,6 +12,17 @@ public class GymBlockItf : CharacterItf
 
     Dictionary<JointType, Node3D> joint;  // array of joints
     Dictionary<JointType,Quaternion> quat; // array of quaternions;
+
+    private static ImmutableDictionary<JointType,Vector3> hingeVectors = ImmutableDictionary.CreateRange(
+        new KeyValuePair<JointType,Vector3>[] {
+            KeyValuePair.Create(JointType.ElbowL,Vector3.Up),
+            KeyValuePair.Create(JointType.ElbowR,Vector3.Up),
+            KeyValuePair.Create(JointType.KneeL,Vector3.Right),
+            KeyValuePair.Create(JointType.KneeR,Vector3.Right),
+            KeyValuePair.Create(JointType.Torso,Vector3.Right),
+            KeyValuePair.Create(JointType.Waist,Vector3.Right),
+        }
+    );
 
     //------------------------------------------------------------------------
     // Constructor
@@ -54,6 +66,10 @@ public class GymBlockItf : CharacterItf
         joint.Add(JointType.KneeR, model.GetNode<Node3D>(pathStr));
     }
 
+    public override ImmutableDictionary<JointType,Vector3> HingeVectors() 
+    {
+        return hingeVectors;
+    }
 
     //------------ Methods for the left shoulder -----------------------------
     public override void SetShoulderLQuat(Quaternion q)

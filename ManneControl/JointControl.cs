@@ -5,6 +5,8 @@
 using Godot;
 using System;
 using System.Dynamic;
+using System.Collections.Immutable;
+
 
 public class JointControl : ManneControl
 {
@@ -16,6 +18,8 @@ public class JointControl : ManneControl
     float dAngle;
     JointType selectedJoint;
 
+    private ImmutableDictionary<JointType,Vector3> hingeVectors;
+
     //------------------------------------------------------------------------
     // Constructor
     //------------------------------------------------------------------------
@@ -25,6 +29,7 @@ public class JointControl : ManneControl
         selectedJoint = JointType.Waist; //sets defalut joint to waist
         angleX = angleY = angleZ = 0.0f;
         dAngle = Mathf.DegToRad(2.0f);
+        hingeVectors = mitf.HingeVectors();
 
     }
 
@@ -112,8 +117,8 @@ public class JointControl : ManneControl
         var currentQuat = modelItf.GetJointQuat(selectedJoint);
 
         // Use only right and left if a hinge joint
-        if (CharacterItf.HingeVectors.ContainsKey(selectedJoint)) {
-            Quaternion q = new Quaternion(CharacterItf.HingeVectors[selectedJoint],angleY);
+        if (hingeVectors.ContainsKey(selectedJoint)) {
+            Quaternion q = new Quaternion(hingeVectors[selectedJoint],angleY);
             modelItf.SetJointQuat(selectedJoint,currentQuat*q);
         } else {
             modelItf.QuatCalcEulerYZX(angleX,angleY,angleZ);

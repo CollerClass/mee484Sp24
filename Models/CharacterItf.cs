@@ -15,21 +15,15 @@ public abstract class CharacterItf
 
     protected Vector3 uVec;
 
-    public static ImmutableDictionary<JointType,Vector3> HingeVectors = ImmutableDictionary.CreateRange(
-        new KeyValuePair<JointType,Vector3>[] {
-            KeyValuePair.Create(JointType.ElbowL,Vector3.Back),
-            KeyValuePair.Create(JointType.ElbowR,Vector3.Back),
-            KeyValuePair.Create(JointType.KneeL,Vector3.Right),
-            KeyValuePair.Create(JointType.KneeR,Vector3.Right),
-            KeyValuePair.Create(JointType.Torso,Vector3.Right),
-            KeyValuePair.Create(JointType.Waist,Vector3.Right),
-        }
-    );
-
     public CharacterItf()
     {
         //GD.Print("CharacterItf Constructor");
         uVec = new Vector3();
+    }
+    
+    public virtual ImmutableDictionary<JointType,Vector3> HingeVectors() 
+    {
+        throw new NotImplementedException();
     }
 
     protected void QuatCalcEulerYXZ(float ax, float ay, float az)
