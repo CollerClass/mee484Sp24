@@ -23,6 +23,14 @@ public class MCTestSimpleBC : ManneControl
 
         angShL_X = angShL_Y = angShL_Z = 0.0f;
         dAngle = Mathf.DegToRad(2.0f);
+    }
+
+    //------------------------------------------------------------------------
+    // Init2: A second initialization method for....
+    //------------------------------------------------------------------------
+    public override void Init2()
+    {
+        base.Init2();
 
         SetupUI();
     }
@@ -78,6 +86,6 @@ public class MCTestSimpleBC : ManneControl
     //------------------------------------------------------------------------
     private void SetupUI()
     {
-
+        GD.Print("SetupUI");
     }
 }

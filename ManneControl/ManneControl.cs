@@ -21,6 +21,10 @@ public abstract class ManneControl
     {
     }
 
+    public virtual void Init2()
+    {
+    }
+
     // MarginContainer setters
     public MarginContainer MarginContainerTL
     {
