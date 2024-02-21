@@ -95,9 +95,14 @@ public class MCTestSimpleBC : ManneControl
         margContTL.AddChild(vboxTL);
 
         optionModel = new OptionButton();
+        optionModel.Text = "Model Choice";
+        optionModel.AddItem("X Bot", 0);
+        optionModel.AddItem("Y Bot", 1);
+        optionModel.AddItem("GymBlock", 2);
         vboxTL.AddChild(optionModel);
 
         genericButton = new Button();
+        genericButton.Text = "Generic Button";
         vboxTL.AddChild(genericButton);
     }
 }
