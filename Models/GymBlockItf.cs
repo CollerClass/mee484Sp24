@@ -95,12 +95,42 @@ public class GymBlockItf : CharacterItf
 
     public override void SetElbowLAngle(float angle)
     {
-
+        joint[JointType.ElbowL].Rotation = new Vector3(0.0f, angle, 0.0f);
     }
 
     public override void SetSimpleWaistTwist(float angle)
     {  
         joint[JointType.Waist].Rotation = new Vector3(0.0f, angle, 0.0f);
+    }
+
+    public override void SetElbowRAngle(float angle)
+    {
+        joint[JointType.ElbowR].Rotation = new Vector3(0.0f, angle, 0.0f);
+    }
+
+    public override void SetSimpleMidTorsoTwist(float angle)
+    {
+       joint[JointType.Torso].Rotation = new Vector3(0.0f, angle, 0.0f);
+    }
+
+    public override void SetHipLAngle(Quaternion q)
+    {
+        joint[JointType.HipL].Quaternion = q;
+    }
+
+    public override void SetHipRAngle(Quaternion q)
+    {
+        joint[JointType.HipR].Quaternion = q;
+    }
+
+    public override void SetKneeLAngle(float angle)
+    {
+        joint[JointType.KneeL].Rotation = new Vector3(0.0f, angle, 0.0f);
+    }
+
+    public override void SetKneeRAngle(float angle)
+    {
+        joint[JointType.KneeR].Rotation = new Vector3(0.0f, angle, 0.0f);
     }
 
     public override void ResetAllJoints()
