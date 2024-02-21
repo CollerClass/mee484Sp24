@@ -14,6 +14,11 @@ public class MCTestSimpleBC : ManneControl
     float angShL_Z;
     float dAngle;
 
+    // UI stuff
+    VBoxContainer vboxTL;
+    OptionButton optionModel;
+    Button genericButton;
+
     //------------------------------------------------------------------------
     // Constructor
     //------------------------------------------------------------------------
@@ -78,6 +83,13 @@ public class MCTestSimpleBC : ManneControl
     //------------------------------------------------------------------------
     private void SetupUI()
     {
+        vboxTL = new VBoxContainer();
+        margContTL.AddChild(vboxTL);
 
+        optionModel = new OptionButton();
+        vboxTL.AddChild(optionModel);
+
+        genericButton = new Button();
+        vboxTL.AddChild(genericButton);
     }
 }
