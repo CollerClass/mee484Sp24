@@ -109,11 +109,11 @@ public partial class MannequinScene : Node3D
 		cam.FOVDeg = camFOV;
 
 		// get MarginContainer nodes
-		mcObject.MarginContainerTL = 
-			GetNode<MarginContainer>("UINode/MargContTL");
-		// margContTR = GetNode<MarginContainer>("UINode/MargContTR");
-		// margContBL = GetNode<MarginContainer>("UINode/MargContBL");
-		// margContBR = GetNode<MarginContainer>("UINode/MargContBR");
+		MarginContainer mcTL = GetNode<MarginContainer>("UINode/MargContTL");
+		MarginContainer mcTR = GetNode<MarginContainer>("UINode/MargContTR");
+		MarginContainer mcBL = GetNode<MarginContainer>("UINode/MargContBL");
+		MarginContainer mcBR = GetNode<MarginContainer>("UINode/MargContBR");
+		mcObject.SetMarginContainers(mcTL, mcTR, mcBL, mcBR);
 
 		mcObject.Init2();
 	}

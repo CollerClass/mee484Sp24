@@ -86,6 +86,6 @@ public class MCTestSimpleBC : ManneControl
     //------------------------------------------------------------------------
     private void SetupUI()
     {
-        GD.Print("SetupUI");
+        
     }
 }
