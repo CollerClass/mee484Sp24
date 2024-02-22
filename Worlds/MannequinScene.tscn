@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Worlds/MannequinScene.cs" id="1_8rqje"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_gv08s"]
-[ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="2_kvno1"]
+[ext_resource type="PackedScene" uid="uid://blxgponho1qji" path="res://Utils/CamRig.tscn" id="2_kvno1"]
 [ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="4_ssojr"]
 [ext_resource type="PackedScene" uid="uid://cnwloj3tg4u5b" path="res://Models/XBotModel.tscn" id="5_8x6l0"]
 [ext_resource type="PackedScene" uid="uid://cgnuhtkr6oylv" path="res://Models/YBotModel.tscn" id="6_nwe5r"]

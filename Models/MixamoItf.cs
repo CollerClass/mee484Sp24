@@ -3,30 +3,30 @@
 //============================================================================
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Collections.Immutable;
 
 public class MixamoItf : CharacterItf
 {
     Node3D model;
 
     Skeleton3D skel;
+    Dictionary<JointType,int> bIdx;  // bone indices
+    Dictionary<JointType,Quaternion> quat; // quaternions relative to rest state
+    Dictionary<JointType,Quaternion> qR;  // rest quaternions
+    Dictionary<JointType,Quaternion> qGl;    // global quaternions
 
-    int nJoints; // number of actuatable joints
-    int[] bIdx;  // bone indices
-    Quaternion[] quat; // quaternions relative to rest state
-    Quaternion[] qR;  // rest quaternions
-    Quaternion[] qGl;    // global quaternions
-
-    // joint indices
-    int jWst   = 0;  // waist joint
-    int jTso   = 1;  // mid torso joint
-    int jShL   = 2;  // left shoulder
-    int jEbL   = 3;  // left elbow
-    int jShR   = 4;  // right shoulder
-    int jEbR   = 5;  // right elbow
-    int jHpL   = 6;  // left hip
-    int jKnL   = 7;  // left knee
-    int jHpR   = 8;  // right hip
-    int jKnR   = 9;  // right knee
+    private static ImmutableDictionary<JointType,Vector3> hingeVectors = ImmutableDictionary.CreateRange(
+        new KeyValuePair<JointType,Vector3>[] {
+            KeyValuePair.Create(JointType.ElbowL,Vector3.Back),
+            KeyValuePair.Create(JointType.ElbowR,Vector3.Back),
+            KeyValuePair.Create(JointType.KneeL,Vector3.Right),
+            KeyValuePair.Create(JointType.KneeR,Vector3.Right),
+            KeyValuePair.Create(JointType.Torso,Vector3.Right),
+            KeyValuePair.Create(JointType.Waist,Vector3.Right),
+        }
+    );
 
     //------------------------------------------------------------------------
     // Constructor
@@ -37,80 +37,179 @@ public class MixamoItf : CharacterItf
 
         skel = model.GetNode<Skeleton3D>("RootNode/Skeleton3D");
 
-        nJoints = 10;
-        bIdx = new int[nJoints];
-        quat = new Quaternion[nJoints];
-        qR = new Quaternion[nJoints];
-        qGl = new Quaternion[nJoints];
+        bIdx = new Dictionary<JointType,int>();
+        quat = new Dictionary<JointType,Quaternion>(); 
+        qR = new Dictionary<JointType,Quaternion>();
+        qGl = new Dictionary<JointType,Quaternion>(); 
+    
 
-        bIdx[jWst] = skel.FindBone("mixamorig_Spine");
-        bIdx[jTso] = skel.FindBone("mixamorig_Spine1");
-        bIdx[jShL] = skel.FindBone("mixamorig_LeftArm");
-        bIdx[jEbL] = skel.FindBone("mixamorig_LeftForeArm");
-        bIdx[jShR] = skel.FindBone("mixamorig_RightArm");
-        bIdx[jEbR] = skel.FindBone("mixamorig_RightForeArm");
-        bIdx[jHpL] = skel.FindBone("mixamorig_LeftUpLeg");
-        bIdx[jKnL] = skel.FindBone("mixamorig_LeftLeg");
-        bIdx[jHpR] = skel.FindBone("mixamorig_RightUpLeg");
-        bIdx[jKnR] = skel.FindBone("mixamorig_RightLeg");
+        bIdx.Add(JointType.Waist, skel.FindBone("mixamorig_Spine"));
+        bIdx.Add(JointType.Torso, skel.FindBone("mixamorig_Spine1"));
+        bIdx.Add(JointType.ShoulderL, skel.FindBone("mixamorig_LeftArm"));
+        bIdx.Add(JointType.ElbowL, skel.FindBone("mixamorig_LeftForeArm"));
+        bIdx.Add(JointType.ShoulderR, skel.FindBone("mixamorig_RightArm"));
+        bIdx.Add(JointType.ElbowR, skel.FindBone("mixamorig_RightForeArm"));
+        bIdx.Add(JointType.HipL, skel.FindBone("mixamorig_LeftUpLeg"));
+        bIdx.Add(JointType.KneeL, skel.FindBone("mixamorig_LeftLeg"));
+        bIdx.Add(JointType.HipR, skel.FindBone("mixamorig_RightUpLeg"));
+        bIdx.Add(JointType.KneeR, skel.FindBone("mixamorig_RightLeg"));
 
         Transform3D tr;
-        int i;
-        for(i=0; i<nJoints; ++i){
-            tr = skel.GetBoneRest(bIdx[i]);
-            qR[i] = new Quaternion(tr.Basis);
-            quat[i] = qR[i];
-            tr = skel.GetBoneGlobalRest(bIdx[i]);
-            qGl[i] = new Quaternion(tr.Basis); 
+        foreach(var id in bIdx){
+            tr = skel.GetBoneRest(id.Value);
+            qR.Add(id.Key, new Quaternion(tr.Basis));
+            quat.Add(id.Key, qR[id.Key]);
+            tr = skel.GetBoneGlobalRest(id.Value);
+            qGl.Add(id.Key, new Quaternion(tr.Basis)); 
         }
 
     }
+
+    public override ImmutableDictionary<JointType,Vector3> HingeVectors() 
+    {
+        return hingeVectors;
+    }
+
 
     //------------ Methods for the left shoulder -----------------------------
     public override void SetShoulderLQuat(Quaternion q)
     {
         //base.SetShoulderLQuat(q);
-        quat[jShL] = q;
-        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
+        quat[JointType.ShoulderL] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderL], quat[JointType.ShoulderL]);
     }
     public override void SetShoulderLAngleYXZ(float ax, float ay, float az)
     {
         //base.SetShoulderLAngleYXZ(ax, ay, az);
         
         QuatCalcEulerYXZ(ax,ay,az);
-        quat[jShL] = qR[jShL]*qGl[jShL].Inverse()*qResult*qGl[jShL];
-        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
+        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGl[JointType.ShoulderL].Inverse()*qResult*qGl[JointType.ShoulderL];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderL], quat[JointType.ShoulderL]);
     }
     public override void SetShoulderLAngleYZX(float ax, float ay, float az)
     {
         //base.SetShoulderLAngleYZX(ax, ay, az);
         
         QuatCalcEulerYZX(ax,ay,az);
-        quat[jShL] = qR[jShL]*qGl[jShL].Inverse()*qResult*qGl[jShL];
-        skel.SetBonePoseRotation(bIdx[jShL], quat[jShL]);
+        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGl[JointType.ShoulderL].Inverse()*qResult*qGl[JointType.ShoulderL];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderL], quat[JointType.ShoulderL]);
     }
 
     //------------ Methods for the right shoulder ----------------------------
     public override void SetShoulderRQuat(Quaternion q)
     {
         //base.SetShoulderRQuat(q);
-        quat[jShR] = q;
-        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
+        quat[JointType.ShoulderR] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderR], quat[JointType.ShoulderR]);
     }
     public override void SetShoulderRAngleYXZ(float ax, float ay, float az)
     {
         //base.SetShoulderRAngleYXZ(ax, ay, az);
         
         QuatCalcEulerYXZ(ax,ay,az);
-        quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
-        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
+        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGl[JointType.ShoulderR].Inverse()*qResult*qGl[JointType.ShoulderR];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderR], quat[JointType.ShoulderR]);
     }
     public override void SetShoulderRAngleYZX(float ax, float ay, float az)
     {
         //base.SetShoulderRAngleYZX(ax, ay, az);
         
         QuatCalcEulerYZX(ax,ay,az);
-        quat[jShR] = qR[jShR]*qGl[jShR].Inverse()*qResult*qGl[jShR];
-        skel.SetBonePoseRotation(bIdx[jShR], quat[jShR]);
+        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGl[JointType.ShoulderR].Inverse()*qResult*qGl[JointType.ShoulderR];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderR], quat[JointType.ShoulderR]);
     }
+
+ //------------ Methods for the Left Elbow  ----------------------------
+    public override void SetElbowLAngle(float angle)
+    {
+        // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(hingeVectors[JointType.ElbowL],angle);
+        quat[JointType.ElbowL] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.ElbowL], quat[JointType.ElbowL]);
+    }
+   
+ //------------ Methods for the Right Elbow  ----------------------------
+    public override void SetElbowRAngle(float angle)
+    {
+        // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(hingeVectors[JointType.ElbowR],angle);
+        quat[JointType.ElbowR] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.ElbowR], quat[JointType.ElbowR]);
+    }
+
+ //------------ Methods for the Waist  ----------------------------
+    public override void SetSimpleWaistTwist(float angle)
+    {
+        // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(hingeVectors[JointType.Waist],angle);
+        quat[JointType.Waist] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.Waist], quat[JointType.Waist]);
+    }
+
+ //------------ Methods for the Mid Torso  ----------------------------
+    public override void SetSimpleMidTorsoTwist(float angle)
+    {
+        // Vector3 elbowNormal = qR[JointType.ElbowL].GetAxis().Normalized().Normalized();
+        Quaternion q = new Quaternion(hingeVectors[JointType.Torso],angle);
+        quat[JointType.Torso] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.Torso], quat[JointType.Torso]);
+    }
+
+ //------------ Methods for the Left Hip  ----------------------------
+    public override void SetHipLAngle(Quaternion q)
+    {
+        quat[JointType.HipL] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.HipL], quat[JointType.HipL]);
+    }
+
+
+ //------------ Methods for the Left Hip  ----------------------------
+    public override void SetHipRAngle(Quaternion q)
+    {
+        quat[JointType.HipR] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.HipR], quat[JointType.HipR]);
+    }
+
+ //------------ Methods for the Left Knee  ----------------------------
+    public override void SetKneeLAngle(float angle)
+    {
+        Quaternion q = new Quaternion(hingeVectors[JointType.KneeL],angle);
+        quat[JointType.KneeL] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.KneeL], quat[JointType.KneeL]);
+    }
+   
+ //------------ Methods for the Right Knee  ----------------------------
+    public override void SetKneeRAngle(float angle)
+    {
+        Quaternion q = new Quaternion(hingeVectors[JointType.KneeR],angle);
+        quat[JointType.KneeR] = q;
+        skel.SetBonePoseRotation(bIdx[JointType.KneeR], quat[JointType.KneeR]);
+    }
+
+ //------------ Methods Reset all joints  ----------------------------
+    public override void ResetAllJoints()
+    {
+        foreach(var bone in qR)
+        {
+            quat[bone.Key] = bone.Value;
+            skel.SetBonePoseRotation(bIdx[bone.Key], quat[bone.Key]);
+        }
+    }
+
+    public override void ResetJoint(JointType jointType) 
+    {
+        quat[jointType] = qR[jointType];
+        skel.SetBonePoseRotation(bIdx[jointType], quat[jointType]);
+    }
+    public override Quaternion GetJointQuat(JointType jointType)
+    {
+        return quat[jointType];
+    }
+
+    public override void SetJointQuat(JointType jointType, Quaternion newQuat)
+    {
+        quat[jointType] = newQuat;
+        skel.SetBonePoseRotation(bIdx[jointType],quat[jointType]);
+    }
+
 }

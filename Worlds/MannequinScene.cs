@@ -24,6 +24,7 @@ public partial class MannequinScene : Node3D
 	// this list. 
 	enum ManneControlType{
 		SimpleBC,
+		JointControl,
 	}
 	ManneControlType mcType;
 	
@@ -47,12 +48,14 @@ public partial class MannequinScene : Node3D
 	public override void _Ready()
 	{
 		// Specify the model type here
-		// modelType = ModelType.GymBlock;
+		 modelType = ModelType.GymBlock;
 		//modelType = ModelType.XBot;
-		modelType = ModelType.YBot;
+		//modelType = ModelType.YBot;
+
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
+		mcType = ManneControlType.JointControl;
 
 
 		//----------------- Mechanism for model and control specification
@@ -83,6 +86,9 @@ public partial class MannequinScene : Node3D
 			//## when new ManneControl classes created, add them to the list
 			case ManneControlType.SimpleBC:
 				mcObject = new MCTestSimpleBC(modelItf);
+				break;
+			case ManneControlType.JointControl:
+				mcObject = new JointControl(modelItf);
 				break;
 
 			default:
