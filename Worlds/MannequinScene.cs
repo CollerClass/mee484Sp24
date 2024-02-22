@@ -34,6 +34,12 @@ public partial class MannequinScene : Node3D
 	float camFOV;
 	Vector3 camTg;       // coords of camera target
 
+	MarginContainer margContTL;
+	MarginContainer margContTR;
+	MarginContainer margContBL;
+	MarginContainer margContBR;
+	
+
 	//------------------------------------------------------------------------
 	// _Ready: Called once when the node enters the scene tree for the first 
 	//         time.
@@ -101,6 +107,15 @@ public partial class MannequinScene : Node3D
 		cam.Distance = camDist;
 		cam.Target = camTg;
 		cam.FOVDeg = camFOV;
+
+		// get MarginContainer nodes
+		MarginContainer mcTL = GetNode<MarginContainer>("UINode/MargContTL");
+		MarginContainer mcTR = GetNode<MarginContainer>("UINode/MargContTR");
+		MarginContainer mcBL = GetNode<MarginContainer>("UINode/MargContBL");
+		MarginContainer mcBR = GetNode<MarginContainer>("UINode/MargContBR");
+		mcObject.SetMarginContainers(mcTL, mcTR, mcBL, mcBR);
+
+		mcObject.Init2();
 	}
 
 	//------------------------------------------------------------------------
