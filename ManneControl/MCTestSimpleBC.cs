@@ -128,34 +128,23 @@ public class MCTestSimpleBC : ManneControl
         dd2 = new DatDisplay2(vboxTL);
         dd2.SetNDisplay(3,true, true);
         dd2.SetTitle("Joint Angles");
-        dd2.SetLabel(0, "Angle 1");
-        dd2.SetLabel(1, "Angle 2");
-        dd2.SetLabel(2, "Angle 3");
+        dd2.SetLabel(0, "Angle 1:");
+        dd2.SetLabel(1, "Angle 2:");
+        dd2.SetLabel(2, "Angle 3:");
 
-        // Data Display
-        //var ddScene = GD.Load<PackedScene>("res://Utils/UIPanelDisplay.tscn");
-        //GD.Print("Bing");
-        //datDisplay = (UIPanelDisplay)ddScene.Instantiate();
-        //var scene = ResourceLoader.Load<PackedScene>("res://scene.tscn").Instantiate();
-        // datDisplay = (UIPanelDisplay)ResourceLoader.Load<PackedScene>("res://Utils/UIPanelDisplay.tscn").Instantiate();
-        // datDisplay.Show();
-        // datDisplay.SetNDisplay(3);
-        // GD.Print("Chat");
-        // datDisplay.SetNDisplay(3);
-        // GD.Print("chot");
-        // datDisplay.SetLabel(0, "Angle 1");
-        // datDisplay.SetLabel(1, "Angle 2");
-        // datDisplay.SetLabel(2, "Angle 3");
+        dd2.SetDigitsAfterDecimal(0, 1);
+        dd2.SetDigitsAfterDecimal(1, 1);
+        dd2.SetDigitsAfterDecimal(2, 1);
+
+        dd2.SetSuffixDegree(0);
+        dd2.SetSuffixDegree(1);
+        dd2.SetSuffixDegree(2);
+
+        dd2.SetValue(0, 0.0f);
+        dd2.SetValue(1, 0.0f);
+        dd2.SetValue(2, 0.0f);
+
         
-        // datDisplay.SetDigitsAfterDecimal(0,1);
-        // datDisplay.SetDigitsAfterDecimal(1,1);
-        // datDisplay.SetDigitsAfterDecimal(2,1);
-
-        // datDisplay.SetValue(0, 0.0f);
-        // datDisplay.SetValue(1, 0.0f);
-        // datDisplay.SetValue(2, 0.0f);
-
-        //vboxTL.AddChild(datDisplay);
 
         // genericButton = new Button();
         // genericButton.Text = "Generic Button";

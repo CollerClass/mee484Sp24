@@ -16,7 +16,9 @@ public class DatDisplay2{
 
     Label[] labels;
     Label[] values;
-    private String[] fStrings;
+    String[] fStrings;
+    String[] decStrings;
+    String[] sfxStrings;
     Label title;
 
     CheckBox[] checkBoxes;
@@ -61,7 +63,8 @@ public class DatDisplay2{
         labels = new Label[sz];
         values = new Label[sz];
         fStrings = new String[sz];
-        
+        decStrings = new string[sz];
+        sfxStrings = new string[sz];
 
         grid = new GridContainer();
         if(hasButtons){
@@ -87,6 +90,8 @@ public class DatDisplay2{
                 grid.AddChild(checkBoxes[i]);
 
             fStrings[i] = "0.00";
+            decStrings[i] = "0.00";
+            sfxStrings[i] = "";
         }
         //hbox.AddChild(vBoxLabels);
         //hbox.AddChild(vBoxValues);
@@ -113,5 +118,75 @@ public class DatDisplay2{
         }
 
         labels[idx].Text = str;
+    }
+
+    //------------------------------------------------------------------------
+    // SetValue: Sets a value string
+    //------------------------------------------------------------------------
+    public void SetValue(int idx, float val)
+    {
+        if(idx < 0 || idx >= nDisp)
+        {
+            return;
+        }
+
+        values[idx].Text = val.ToString(fStrings[idx]);
+    }
+
+    public void SetValue(int idx, string str)
+    {
+        if(idx < 0 || idx >= nDisp)
+        {
+            return;
+        }
+
+        values[idx].Text = str;
+    }
+
+    //------------------------------------------------------------------------
+    // SetDigitsAfterDecimal: Sets number of digits after decimal point
+    //------------------------------------------------------------------------
+    public void SetDigitsAfterDecimal(int idx, int n)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        if(n < 0)
+            return;
+
+        if(n > 10)
+            n = 10;
+
+        decStrings[idx] = "0.";
+        for(int i=0;i<n;++i)
+            decStrings[idx] += "0";
+
+        fStrings[idx] = decStrings[idx] + sfxStrings[idx];
+    }
+
+    //------------------------------------------------------------------------
+    // SetSuffix:
+    //------------------------------------------------------------------------
+    public void SetSuffix(int idx, String sfx)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        sfxStrings[idx] = " " + sfx;
+
+        fStrings[idx] = decStrings[idx] + sfxStrings[idx];
+    }
+
+    //------------------------------------------------------------------------
+    // SetSuffixDegree:
+    //------------------------------------------------------------------------
+    public void SetSuffixDegree(int idx)
+    {
+        if(idx < 0 || idx >= nDisp)
+            return;
+
+        sfxStrings[idx] = " \u00B0";
+
+        fStrings[idx] = decStrings[idx] + sfxStrings[idx];
     }
 }
