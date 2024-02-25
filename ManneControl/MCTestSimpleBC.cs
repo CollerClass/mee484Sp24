@@ -9,14 +9,15 @@ public class MCTestSimpleBC : ManneControl
 {
     CharacterItf modelItf;
     
-    float angShL_X;
-    float angShL_Y;
-    float angShL_Z;
+    float angle1;
+    float angle2;
+    float angle3;
     float dAngle;
 
     // UI stuff
     VBoxContainer vboxTL;
     OptionButton optionModel;
+    UIPanelDisplay datDisplay;
     Button genericButton;
 
     //------------------------------------------------------------------------
@@ -26,8 +27,8 @@ public class MCTestSimpleBC : ManneControl
     {
         modelItf = mitf;
 
-        angShL_X = angShL_Y = angShL_Z = 0.0f;
-        dAngle = Mathf.DegToRad(2.0f);
+        angle1 = angle2 = angle3 = 0.0f;
+        dAngle = 2.0f;
     }
 
     //------------------------------------------------------------------------
@@ -47,33 +48,45 @@ public class MCTestSimpleBC : ManneControl
     {
         //base.Process(delta);
 
-        float waistAngle = (float)Math.Cos(time);
+        //float waistAngle = (float)Math.Cos(time);
         //modelItf.SetSimpleWaistTwist(waistAngle);
 
+        bool angleUpdate = false;
         if(Input.IsActionPressed("ui_right")){
-            angShL_Y += dAngle;
+            angle1 += dAngle;
+            angleUpdate = true;
         }
         if(Input.IsActionPressed("ui_left")){
-            angShL_Y -= dAngle;
+            angle1 -= dAngle;
+            angleUpdate = true;
         }
 
         if(Input.IsActionPressed("ui_up")){
-            angShL_Z += dAngle;
+            angle2 += dAngle;
+            angleUpdate = true;
         }
         if(Input.IsActionPressed("ui_down")){
-            angShL_Z -= dAngle;
+            angle2 -= dAngle;
+            angleUpdate = true;
         }
 
         if(Input.IsActionPressed("ui_other_right")){
-            angShL_X += dAngle;
+            angle3 += dAngle;
+            angleUpdate = true;
         }
         if(Input.IsActionPressed("ui_other_left")){
-            angShL_X -= dAngle;
+            angle3 -= dAngle;
+            angleUpdate = true;
         }
 
-        //modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
-        modelItf.SetShoulderLAngleYZX(angShL_X, angShL_Y, angShL_Z);
-        modelItf.SetShoulderRAngleYZX(angShL_X, angShL_Y, angShL_Z);
+        if(angleUpdate){
+            float ang1Rad = Mathf.DegToRad(angle1);
+            float ang2Rad = Mathf.DegToRad(angle2);
+            float ang3Rad = Mathf.DegToRad(angle3);
+            //modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
+            modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+            modelItf.SetShoulderRAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+        }
 
         time += delta;
     }
@@ -94,6 +107,7 @@ public class MCTestSimpleBC : ManneControl
         vboxTL = new VBoxContainer();
         margContTL.AddChild(vboxTL);
 
+        // Model option
         optionModel = new OptionButton();
         optionModel.Text = "Model Choice";
         optionModel.AddItem("X Bot", 0);
@@ -101,8 +115,25 @@ public class MCTestSimpleBC : ManneControl
         optionModel.AddItem("GymBlock", 2);
         vboxTL.AddChild(optionModel);
 
-        genericButton = new Button();
-        genericButton.Text = "Generic Button";
-        vboxTL.AddChild(genericButton);
+        // Data Display
+        datDisplay = new UIPanelDisplay();
+        datDisplay.SetNDisplay(3);
+        datDisplay.SetLabel(0, "Angle 1");
+        datDisplay.SetLabel(1, "Angle 2");
+        datDisplay.SetLabel(2, "Angle 3");
+        
+        datDisplay.SetDigitsAfterDecimal(0,1);
+        datDisplay.SetDigitsAfterDecimal(1,1);
+        datDisplay.SetDigitsAfterDecimal(2,1);
+
+        datDisplay.SetValue(0, 0.0f);
+        datDisplay.SetValue(1, 0.0f);
+        datDisplay.SetValue(2, 0.0f);
+
+        vboxTL.AddChild(datDisplay);
+
+        // genericButton = new Button();
+        // genericButton.Text = "Generic Button";
+        // vboxTL.AddChild(genericButton);
     }
 }

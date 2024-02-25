@@ -55,7 +55,7 @@ public partial class MannequinScene : Node3D
 
 		// Specify the class for mannequin interaction here
 		mcType = ManneControlType.SimpleBC;
-		mcType = ManneControlType.JointControl;
+		//mcType = ManneControlType.JointControl;
 
 
 		//----------------- Mechanism for model and control specification
