@@ -9,9 +9,7 @@ public class MCTestSimpleBC : ManneControl
 {
     CharacterItf modelItf;
     
-    float angle1;
-    float angle2;
-    float angle3;
+    float[] angles;
     float dAngle;
 
     // UI stuff
@@ -19,8 +17,11 @@ public class MCTestSimpleBC : ManneControl
     OptionButton optionModel;
     UIPanelDisplay datDisplay;
     Button genericButton;
-
     DatDisplay2 dd2;
+
+    HBoxContainer adjHbox;
+    Button[] adjButtons;
+    bool adjFastPress;
 
     //------------------------------------------------------------------------
     // Constructor
@@ -29,7 +30,8 @@ public class MCTestSimpleBC : ManneControl
     {
         modelItf = mitf;
 
-        angle1 = angle2 = angle3 = 0.0f;
+        angles = new float[3];
+        angles[0] = angles[1] = angles[2] = 0.0f;
         dAngle = 2.0f;
     }
 
@@ -54,37 +56,37 @@ public class MCTestSimpleBC : ManneControl
         //modelItf.SetSimpleWaistTwist(waistAngle);
 
         bool angleUpdate = false;
-        if(Input.IsActionPressed("ui_right")){
-            angle1 += dAngle;
-            angleUpdate = true;
-        }
-        if(Input.IsActionPressed("ui_left")){
-            angle1 -= dAngle;
-            angleUpdate = true;
-        }
+        // if(Input.IsActionPressed("ui_right")){
+        //     angles[0] += dAngle;
+        //     angleUpdate = true;
+        // }
+        // if(Input.IsActionPressed("ui_left")){
+        //     angles[0] -= dAngle;
+        //     angleUpdate = true;
+        // }
 
-        if(Input.IsActionPressed("ui_up")){
-            angle2 += dAngle;
-            angleUpdate = true;
-        }
-        if(Input.IsActionPressed("ui_down")){
-            angle2 -= dAngle;
-            angleUpdate = true;
-        }
+        // if(Input.IsActionPressed("ui_up")){
+        //     angles[1] += dAngle;
+        //     angleUpdate = true;
+        // }
+        // if(Input.IsActionPressed("ui_down")){
+        //     angles[1] -= dAngle;
+        //     angleUpdate = true;
+        // }
 
-        if(Input.IsActionPressed("ui_other_right")){
-            angle3 += dAngle;
-            angleUpdate = true;
-        }
-        if(Input.IsActionPressed("ui_other_left")){
-            angle3 -= dAngle;
-            angleUpdate = true;
-        }
+        // if(Input.IsActionPressed("ui_other_right")){
+        //     angles[2] += dAngle;
+        //     angleUpdate = true;
+        // }
+        // if(Input.IsActionPressed("ui_other_left")){
+        //     angles[2] -= dAngle;
+        //     angleUpdate = true;
+        // }
 
         if(angleUpdate){
-            float ang1Rad = Mathf.DegToRad(angle1);
-            float ang2Rad = Mathf.DegToRad(angle2);
-            float ang3Rad = Mathf.DegToRad(angle3);
+            float ang1Rad = Mathf.DegToRad(angles[0]);
+            float ang2Rad = Mathf.DegToRad(angles[1]);
+            float ang3Rad = Mathf.DegToRad(angles[2]);
             
             //modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
             modelItf.SetShoulderRAngleYZX(ang3Rad, ang1Rad, ang2Rad);
@@ -125,6 +127,7 @@ public class MCTestSimpleBC : ManneControl
         optionModel.AddItem("GymBlock", 2);
         vboxTL.AddChild(optionModel);
 
+        // Data display
         dd2 = new DatDisplay2(vboxTL);
         dd2.SetNDisplay(3,true, true);
         dd2.SetTitle("Joint Angles");
@@ -144,10 +147,65 @@ public class MCTestSimpleBC : ManneControl
         dd2.SetValue(1, 0.0f);
         dd2.SetValue(2, 0.0f);
 
-        
+        // Adjustment Buttons
+        adjHbox = new HBoxContainer();
+        vboxTL.AddChild(adjHbox);
+
+        adjButtons = new Button[5];
+        adjButtons[0] = new Button();
+        adjButtons[0].Text = "<<";
+        adjButtons[0].Pressed += OnAdjButtonFastL;
+
+        adjButtons[1] = new Button();
+        adjButtons[1].Text = ">>";
+        adjButtons[1].Pressed += OnAdjButtonFastR;
+
+        adjButtons[2] = new Button();
+        adjButtons[2].Text = "<";
+        adjButtons[2].Pressed += OnAdjButtonSlowL;
+
+        adjButtons[3] = new Button();
+        adjButtons[3].Text = ">";
+        adjButtons[3].Pressed += OnAdjButtonSlowR;
+
+        adjButtons[4] = new Button();
+        adjButtons[4].Text = "R";
+        adjButtons[4].Pressed += OnAdjButtonReset;
+
+        adjHbox.AddChild(adjButtons[0]);
+        adjHbox.AddChild(adjButtons[2]);
+        adjHbox.AddChild(adjButtons[4]);
+        adjHbox.AddChild(adjButtons[3]);
+        adjHbox.AddChild(adjButtons[1]);
+
+        adjFastPress = false;
 
         // genericButton = new Button();
         // genericButton.Text = "Generic Button";
         // vboxTL.AddChild(genericButton);
+    }
+
+    //------------------------------------------------------------------------
+    // adjButtonHandlers
+    //------------------------------------------------------------------------
+    private void OnAdjButtonFastL()
+    {
+        GD.Print("OnAdjButtonFastL");
+    }
+    private void OnAdjButtonFastR()
+    {
+        GD.Print("OnAdjButtonFastR");
+    }
+    private void OnAdjButtonSlowL()
+    {
+        GD.Print("OnAdjButtonSlowL");
+    }
+    private void OnAdjButtonSlowR()
+    {
+        GD.Print("OnAdjButtonSlowR");
+    }
+    private void OnAdjButtonReset()
+    {
+        GD.Print("OnAdjButtonReset");
     }
 }
