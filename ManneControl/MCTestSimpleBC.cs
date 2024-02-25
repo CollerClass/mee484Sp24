@@ -20,6 +20,8 @@ public class MCTestSimpleBC : ManneControl
     UIPanelDisplay datDisplay;
     Button genericButton;
 
+    DatDisplay2 dd2;
+
     //------------------------------------------------------------------------
     // Constructor
     //------------------------------------------------------------------------
@@ -83,9 +85,17 @@ public class MCTestSimpleBC : ManneControl
             float ang1Rad = Mathf.DegToRad(angle1);
             float ang2Rad = Mathf.DegToRad(angle2);
             float ang3Rad = Mathf.DegToRad(angle3);
-            //modelItf.SetShoulderLAngleYXZ(angShL_X, angShL_Y, angShL_Z);
-            modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+            
+            //modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
             modelItf.SetShoulderRAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+
+            Vector3 vv = Mathf.Sin(0.5f*ang1Rad) * Vector3.Up;
+            Quaternion q = new Quaternion();
+            q.W = Mathf.Cos(0.5f*ang1Rad);
+            q.X = vv.X;
+            q.Y = vv.Y;
+            q.Z = vv.Z;
+            modelItf.SetShoulderLQuat(q);
         }
 
         time += delta;
@@ -115,22 +125,37 @@ public class MCTestSimpleBC : ManneControl
         optionModel.AddItem("GymBlock", 2);
         vboxTL.AddChild(optionModel);
 
+        dd2 = new DatDisplay2(vboxTL);
+        dd2.SetNDisplay(3,true, true);
+        dd2.SetTitle("Joint Angles");
+        dd2.SetLabel(0, "Angle 1");
+        dd2.SetLabel(1, "Angle 2");
+        dd2.SetLabel(2, "Angle 3");
+
         // Data Display
-        datDisplay = new UIPanelDisplay();
-        datDisplay.SetNDisplay(3);
-        datDisplay.SetLabel(0, "Angle 1");
-        datDisplay.SetLabel(1, "Angle 2");
-        datDisplay.SetLabel(2, "Angle 3");
+        //var ddScene = GD.Load<PackedScene>("res://Utils/UIPanelDisplay.tscn");
+        //GD.Print("Bing");
+        //datDisplay = (UIPanelDisplay)ddScene.Instantiate();
+        //var scene = ResourceLoader.Load<PackedScene>("res://scene.tscn").Instantiate();
+        // datDisplay = (UIPanelDisplay)ResourceLoader.Load<PackedScene>("res://Utils/UIPanelDisplay.tscn").Instantiate();
+        // datDisplay.Show();
+        // datDisplay.SetNDisplay(3);
+        // GD.Print("Chat");
+        // datDisplay.SetNDisplay(3);
+        // GD.Print("chot");
+        // datDisplay.SetLabel(0, "Angle 1");
+        // datDisplay.SetLabel(1, "Angle 2");
+        // datDisplay.SetLabel(2, "Angle 3");
         
-        datDisplay.SetDigitsAfterDecimal(0,1);
-        datDisplay.SetDigitsAfterDecimal(1,1);
-        datDisplay.SetDigitsAfterDecimal(2,1);
+        // datDisplay.SetDigitsAfterDecimal(0,1);
+        // datDisplay.SetDigitsAfterDecimal(1,1);
+        // datDisplay.SetDigitsAfterDecimal(2,1);
 
-        datDisplay.SetValue(0, 0.0f);
-        datDisplay.SetValue(1, 0.0f);
-        datDisplay.SetValue(2, 0.0f);
+        // datDisplay.SetValue(0, 0.0f);
+        // datDisplay.SetValue(1, 0.0f);
+        // datDisplay.SetValue(2, 0.0f);
 
-        vboxTL.AddChild(datDisplay);
+        //vboxTL.AddChild(datDisplay);
 
         // genericButton = new Button();
         // genericButton.Text = "Generic Button";
