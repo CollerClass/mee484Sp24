@@ -25,11 +25,13 @@ public abstract class ManneControl
     {
     }
 
-    // MarginContainer setters
-    public MarginContainer MarginContainerTL
+    public void SetMarginContainers(MarginContainer mcTL, 
+        MarginContainer mcTR, MarginContainer mcBL, MarginContainer mcBR)
     {
-        set{
-            margContTL = value;
-        }
+        margContTL = mcTL;
+        margContTR = mcTR;
+        margContBL = mcBL;
+        margContBR = mcBR;
     }
+    
 }

@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://c51k8tf644d1b"]
+
+[node name="PoseUtility" type="MenuBar"]
+metadata/_edit_group_ = true

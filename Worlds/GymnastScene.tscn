@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Worlds/GymnastScene.cs" id="1_3y8fi"]
 [ext_resource type="Texture2D" uid="uid://ctxhdvlvy4h26" path="res://Textures/kennyDK4.png" id="1_mviwq"]
 [ext_resource type="PackedScene" uid="uid://dmxg6g2d04uib" path="res://Models/GymBlockModel.tscn" id="2_730jc"]
-[ext_resource type="PackedScene" path="res://Utils/CamRig.tscn" id="3_xv6ke"]
+[ext_resource type="PackedScene" uid="uid://blxgponho1qji" path="res://Utils/CamRig.tscn" id="3_xv6ke"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ti6fq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
