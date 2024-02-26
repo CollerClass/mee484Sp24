@@ -11,6 +11,7 @@ public class MCTestSimpleBC : ManneControl
     
     float[] angles;
     float dAngle;
+    int angleIdx;
 
     // UI stuff
     VBoxContainer vboxTL;
@@ -32,7 +33,8 @@ public class MCTestSimpleBC : ManneControl
 
         angles = new float[3];
         angles[0] = angles[1] = angles[2] = 0.0f;
-        dAngle = 2.0f;
+        dAngle = 1.0f;
+        angleIdx = 0;
     }
 
     //------------------------------------------------------------------------
@@ -52,55 +54,43 @@ public class MCTestSimpleBC : ManneControl
     {
         //base.Process(delta);
 
-        //float waistAngle = (float)Math.Cos(time);
-        //modelItf.SetSimpleWaistTwist(waistAngle);
-
-        bool angleUpdate = false;
-        // if(Input.IsActionPressed("ui_right")){
-        //     angles[0] += dAngle;
-        //     angleUpdate = true;
-        // }
-        // if(Input.IsActionPressed("ui_left")){
-        //     angles[0] -= dAngle;
-        //     angleUpdate = true;
-        // }
-
-        // if(Input.IsActionPressed("ui_up")){
-        //     angles[1] += dAngle;
-        //     angleUpdate = true;
-        // }
-        // if(Input.IsActionPressed("ui_down")){
-        //     angles[1] -= dAngle;
-        //     angleUpdate = true;
-        // }
-
-        // if(Input.IsActionPressed("ui_other_right")){
-        //     angles[2] += dAngle;
-        //     angleUpdate = true;
-        // }
-        // if(Input.IsActionPressed("ui_other_left")){
-        //     angles[2] -= dAngle;
-        //     angleUpdate = true;
-        // }
-
-        if(angleUpdate){
-            float ang1Rad = Mathf.DegToRad(angles[0]);
-            float ang2Rad = Mathf.DegToRad(angles[1]);
-            float ang3Rad = Mathf.DegToRad(angles[2]);
-            
-            //modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
-            modelItf.SetShoulderRAngleYZX(ang3Rad, ang1Rad, ang2Rad);
-
-            Vector3 vv = Mathf.Sin(0.5f*ang1Rad) * Vector3.Up;
-            Quaternion q = new Quaternion();
-            q.W = Mathf.Cos(0.5f*ang1Rad);
-            q.X = vv.X;
-            q.Y = vv.Y;
-            q.Z = vv.Z;
-            modelItf.SetShoulderLQuat(q);
+        if(adjButtons[0].ButtonPressed){
+            angles[angleIdx] -= dAngle;
+            ProcessAngles();
         }
+        else if(adjButtons[1].ButtonPressed){
+            angles[angleIdx] += dAngle;
+            ProcessAngles();
+        }
+        
 
         time += delta;
+    }
+
+    //------------------------------------------------------------------------
+    // ProcessAngles
+    //------------------------------------------------------------------------
+    private void ProcessAngles()
+    {
+        int i;
+        for(i=0; i<3; ++i){
+            dd2.SetValue(i, angles[i]);
+        }
+
+        float ang1Rad = Mathf.DegToRad(angles[0]);
+        float ang2Rad = Mathf.DegToRad(angles[1]);
+        float ang3Rad = Mathf.DegToRad(angles[2]);
+            
+        //modelItf.SetShoulderLAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+        modelItf.SetShoulderRAngleYZX(ang3Rad, ang1Rad, ang2Rad);
+
+        Vector3 vv = Mathf.Sin(0.5f*ang1Rad) * Vector3.Up;
+        Quaternion q = new Quaternion();
+        q.W = Mathf.Cos(0.5f*ang1Rad);
+        q.X = vv.X;
+        q.Y = vv.Y;
+        q.Z = vv.Z;
+        modelItf.SetShoulderLQuat(q);
     }
 
     //------------------------------------------------------------------------
@@ -154,19 +144,19 @@ public class MCTestSimpleBC : ManneControl
         adjButtons = new Button[5];
         adjButtons[0] = new Button();
         adjButtons[0].Text = "<<";
-        adjButtons[0].Pressed += OnAdjButtonFastL;
+        //adjButtons[0].Pressed += OnAdjButtonFastL;
 
         adjButtons[1] = new Button();
         adjButtons[1].Text = ">>";
-        adjButtons[1].Pressed += OnAdjButtonFastR;
+        //adjButtons[1].Pressed += OnAdjButtonFastL;
 
         adjButtons[2] = new Button();
-        adjButtons[2].Text = "<";
-        adjButtons[2].Pressed += OnAdjButtonSlowL;
+        adjButtons[2].Text = "<.";
+        adjButtons[2].Pressed += OnAdjButtonSlow;
 
         adjButtons[3] = new Button();
-        adjButtons[3].Text = ">";
-        adjButtons[3].Pressed += OnAdjButtonSlowR;
+        adjButtons[3].Text = ".>";
+        adjButtons[3].Pressed += OnAdjButtonSlow;
 
         adjButtons[4] = new Button();
         adjButtons[4].Text = "R";
@@ -188,24 +178,21 @@ public class MCTestSimpleBC : ManneControl
     //------------------------------------------------------------------------
     // adjButtonHandlers
     //------------------------------------------------------------------------
-    private void OnAdjButtonFastL()
+    private void OnAdjButtonSlow()
     {
-        GD.Print("OnAdjButtonFastL");
-    }
-    private void OnAdjButtonFastR()
-    {
-        GD.Print("OnAdjButtonFastR");
-    }
-    private void OnAdjButtonSlowL()
-    {
-        GD.Print("OnAdjButtonSlowL");
-    }
-    private void OnAdjButtonSlowR()
-    {
-        GD.Print("OnAdjButtonSlowR");
+        if(adjButtons[2].ButtonPressed){
+            angles[angleIdx] -= dAngle;
+            ProcessAngles();
+        }
+        else if(adjButtons[3].ButtonPressed){
+            angles[angleIdx] += dAngle;
+            ProcessAngles();
+        }
     }
     private void OnAdjButtonReset()
     {
         GD.Print("OnAdjButtonReset");
+        angles[angleIdx] = 0.0f;
+        ProcessAngles();
     }
 }
