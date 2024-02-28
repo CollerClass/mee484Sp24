@@ -186,6 +186,36 @@ public class MixamoItf : CharacterItf
         skel.SetBonePoseRotation(bIdx[JointType.KneeR], quat[JointType.KneeR]);
     }
 
+    public override void MirrorLeftToRight()
+    {
+        quat[JointType.ShoulderR] = quat[JointType.ShoulderL];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderR],quat[JointType.ShoulderR]);
+
+        quat[JointType.ElbowR] = quat[JointType.ElbowL];
+        skel.SetBonePoseRotation(bIdx[JointType.ElbowR],quat[JointType.ElbowR]);
+
+        quat[JointType.HipR] = quat[JointType.HipL];
+        skel.SetBonePoseRotation(bIdx[JointType.HipR],quat[JointType.HipR]);
+
+        quat[JointType.KneeR] = quat[JointType.KneeL];
+        skel.SetBonePoseRotation(bIdx[JointType.KneeR],quat[JointType.KneeR]);
+    }
+
+    public override void MirrorRightToLeft()
+    {
+        quat[JointType.ShoulderL] = quat[JointType.ShoulderR];
+        skel.SetBonePoseRotation(bIdx[JointType.ShoulderL],quat[JointType.ShoulderL]);
+
+        quat[JointType.ElbowL] = quat[JointType.ElbowR];
+        skel.SetBonePoseRotation(bIdx[JointType.ElbowL],quat[JointType.ElbowL]);
+
+        quat[JointType.HipL] = quat[JointType.HipR];
+        skel.SetBonePoseRotation(bIdx[JointType.HipL],quat[JointType.HipL]);
+
+        quat[JointType.KneeL] = quat[JointType.KneeR];
+        skel.SetBonePoseRotation(bIdx[JointType.KneeL],quat[JointType.KneeL]);
+    }
+
  //------------ Methods Reset all joints  ----------------------------
     public override void ResetAllJoints()
     {

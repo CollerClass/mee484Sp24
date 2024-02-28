@@ -149,6 +149,22 @@ public class GymBlockItf : CharacterItf
         joint[JointType.KneeR].Rotation = new Vector3(0.0f, angle, 0.0f);
     }
 
+    public override void MirrorLeftToRight()
+    {
+        joint[JointType.ShoulderR].Quaternion = joint[JointType.ShoulderL].Quaternion;
+        joint[JointType.ElbowR].Quaternion = joint[JointType.ElbowL].Quaternion;
+        joint[JointType.HipR].Quaternion = joint[JointType.HipL].Quaternion;
+        joint[JointType.KneeR].Quaternion = joint[JointType.KneeL].Quaternion;
+    }
+
+    public override void MirrorRightToLeft()
+    {
+        joint[JointType.ShoulderL].Quaternion = joint[JointType.ShoulderR].Quaternion;
+        joint[JointType.ElbowL].Quaternion = joint[JointType.ElbowR].Quaternion;
+        joint[JointType.HipL].Quaternion = joint[JointType.HipR].Quaternion;
+        joint[JointType.KneeL].Quaternion = joint[JointType.KneeR].Quaternion;
+    }
+
     public override void ResetAllJoints()
     {
         foreach(var bone in joint)

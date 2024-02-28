@@ -101,6 +101,14 @@ public abstract class CharacterItf
     {
     }
 
+    public virtual void MirrorLeftToRight()
+    {
+    }
+
+    public virtual void MirrorRightToLeft()
+    {
+    }
+
     public virtual void ResetAllJoints()
     {
     }
