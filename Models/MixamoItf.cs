@@ -28,6 +28,15 @@ public class MixamoItf : CharacterItf
         }
     );
 
+    Dictionary<SegmentType,int> segmentStartId;
+    Dictionary<SegmentType,int> segmentEndId;
+    Dictionary<SegmentType,Transform3D> segmentStart;
+    Dictionary<SegmentType,Transform3D> segmentEnd;
+    Dictionary<SegmentType,float> segmentLength;
+    int mixamoRootNodeId;
+    int simulationRootNodeId;
+    Transform3D mixamoToSimulationTransform;
+
     //------------------------------------------------------------------------
     // Constructor
     //------------------------------------------------------------------------
@@ -41,7 +50,6 @@ public class MixamoItf : CharacterItf
         quat = new Dictionary<JointType,Quaternion>(); 
         qR = new Dictionary<JointType,Quaternion>();
         qGl = new Dictionary<JointType,Quaternion>(); 
-    
 
         bIdx.Add(JointType.Waist, skel.FindBone("mixamorig_Spine"));
         bIdx.Add(JointType.Torso, skel.FindBone("mixamorig_Spine1"));
@@ -62,6 +70,11 @@ public class MixamoItf : CharacterItf
             tr = skel.GetBoneGlobalRest(id.Value);
             qGl.Add(id.Key, new Quaternion(tr.Basis)); 
         }
+
+        mixamoRootNodeId = skel.FindBone("mixamorig_Hips");
+        simulationRootNodeId = skel.FindBone("mixamorig_Spine2");
+        mixamoToSimulationTransform = skel.GetBoneGlobalPose(mixamoRootNodeId).AffineInverse()*skel.GetBoneGlobalPose(simulationRootNodeId); 
+
 
     }
 
@@ -241,5 +254,4 @@ public class MixamoItf : CharacterItf
         quat[jointType] = newQuat;
         skel.SetBonePoseRotation(bIdx[jointType],quat[jointType]);
     }
-
 }

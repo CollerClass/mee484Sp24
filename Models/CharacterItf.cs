@@ -15,10 +15,13 @@ public abstract class CharacterItf
 
     protected Vector3 uVec;
 
+    public InertiaProps inertiaProps;
+
     public CharacterItf()
     {
         //GD.Print("CharacterItf Constructor");
         uVec = new Vector3();
+        inertiaProps = new InertiaProps();
     }
     
     public virtual ImmutableDictionary<JointType,Vector3> HingeVectors() 
@@ -123,6 +126,11 @@ public abstract class CharacterItf
     }
 
     public virtual void SetJointQuat(JointType jointType, Quaternion newQuat)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual double GetSegmentLength(JointType jointType)
     {
         throw new NotImplementedException();
     }
