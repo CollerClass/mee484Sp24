@@ -15,8 +15,8 @@ public class MixamoItf : CharacterItf
     Dictionary<JointType,int> bIdx;  // bone indices
     Dictionary<JointType,Quaternion> quat; // quaternions relative to rest state
     Dictionary<JointType,Quaternion> qR;  // rest quaternions
-    Dictionary<JointType,Quaternion> qGl;    // global quaternions
-
+    Dictionary<JointType,Quaternion> qGl;    // global rest quaternions
+    Dictionary<JointType,Quaternion> qGli;    // global inverse rest quaternions
     private static ImmutableDictionary<JointType,Vector3> hingeVectors = ImmutableDictionary.CreateRange(
         new KeyValuePair<JointType,Vector3>[] {
             KeyValuePair.Create(JointType.ElbowL,Vector3.Back),
@@ -60,7 +60,8 @@ public class MixamoItf : CharacterItf
             qR.Add(id.Key, new Quaternion(tr.Basis));
             quat.Add(id.Key, qR[id.Key]);
             tr = skel.GetBoneGlobalRest(id.Value);
-            qGl.Add(id.Key, new Quaternion(tr.Basis)); 
+            qGl.Add(id.Key, new Quaternion(tr.Basis));
+            qGli.Add(id.Key, new Quaternion(tr.Basis).Inverse());  
         }
 
     }
@@ -83,7 +84,7 @@ public class MixamoItf : CharacterItf
         //base.SetShoulderLAngleYXZ(ax, ay, az);
         
         QuatCalcEulerYXZ(ax,ay,az);
-        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGl[JointType.ShoulderL].Inverse()*qResult*qGl[JointType.ShoulderL];
+        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGli[JointType.ShoulderL]*qResult*qGl[JointType.ShoulderL];
         skel.SetBonePoseRotation(bIdx[JointType.ShoulderL], quat[JointType.ShoulderL]);
     }
     public override void SetShoulderLAngleYZX(float ax, float ay, float az)
@@ -91,7 +92,7 @@ public class MixamoItf : CharacterItf
         //base.SetShoulderLAngleYZX(ax, ay, az);
         
         QuatCalcEulerYZX(ax,ay,az);
-        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGl[JointType.ShoulderL].Inverse()*qResult*qGl[JointType.ShoulderL];
+        quat[JointType.ShoulderL] = qR[JointType.ShoulderL]*qGli[JointType.ShoulderL]*qResult*qGl[JointType.ShoulderL];
         skel.SetBonePoseRotation(bIdx[JointType.ShoulderL], quat[JointType.ShoulderL]);
     }
 
@@ -107,7 +108,7 @@ public class MixamoItf : CharacterItf
         //base.SetShoulderRAngleYXZ(ax, ay, az);
         
         QuatCalcEulerYXZ(ax,ay,az);
-        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGl[JointType.ShoulderR].Inverse()*qResult*qGl[JointType.ShoulderR];
+        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGli[JointType.ShoulderR]*qResult*qGl[JointType.ShoulderR];
         skel.SetBonePoseRotation(bIdx[JointType.ShoulderR], quat[JointType.ShoulderR]);
     }
     public override void SetShoulderRAngleYZX(float ax, float ay, float az)
@@ -115,7 +116,7 @@ public class MixamoItf : CharacterItf
         //base.SetShoulderRAngleYZX(ax, ay, az);
         
         QuatCalcEulerYZX(ax,ay,az);
-        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGl[JointType.ShoulderR].Inverse()*qResult*qGl[JointType.ShoulderR];
+        quat[JointType.ShoulderR] = qR[JointType.ShoulderR]*qGli[JointType.ShoulderR]*qResult*qGl[JointType.ShoulderR];
         skel.SetBonePoseRotation(bIdx[JointType.ShoulderR], quat[JointType.ShoulderR]);
     }
 
