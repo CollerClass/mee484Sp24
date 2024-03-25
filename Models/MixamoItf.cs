@@ -33,9 +33,11 @@ public class MixamoItf : CharacterItf
     Dictionary<SegmentType,Transform3D> segmentStart;
     Dictionary<SegmentType,Transform3D> segmentEnd;
     Dictionary<SegmentType,float> segmentLength;
-    int mixamoRootNodeId;
-    int simulationRootNodeId;
+    //int mixamoRootNodeId;
+    //int simulationRootNodeId;
     Transform3D mixamoToSimulationTransform;
+
+    Node3D segmentSphere;
 
     //------------------------------------------------------------------------
     // Constructor
@@ -71,11 +73,34 @@ public class MixamoItf : CharacterItf
             qGl.Add(id.Key, new Quaternion(tr.Basis)); 
         }
 
-        mixamoRootNodeId = skel.FindBone("mixamorig_Hips");
-        simulationRootNodeId = skel.FindBone("mixamorig_Spine2");
-        mixamoToSimulationTransform = skel.GetBoneGlobalPose(mixamoRootNodeId).AffineInverse()*skel.GetBoneGlobalPose(simulationRootNodeId); 
+        var mixamoRootNodeId = skel.FindBone("mixamorig_Hips");
+        // simulationRootNodeId = skel.FindBone("mixamorig_Spine2");
+        // var simulationSpine1Node = skel.FindBone("mixamorig_Spine1");
+        // var simulationSpine0Node = skel.FindBone("mixamorig_Spine");
+        //mixamoToSimulationTransform = skel.GetBonePose(simulationSpine0Node)*skel.GetBonePose(simulationSpine1Node)*skel.GetBonePose(simulationRootNodeId); 
+        //mixamoToSimulationTransform = skel.GetBonePose(skel.FindBone("mixamorig_Spine"))*skel.GetBonePose(skel.FindBone("mixamorig_Spine1"))*skel.GetBonePose(skel.FindBone("mixamorig_Spine2")); 
+        mixamoToSimulationTransform = skel.GetBoneGlobalPose(skel.FindBone("mixamorig_Hips")).AffineInverse()*skel.GetBoneGlobalPose(skel.FindBone("mixamorig_Spine2")); 
+
+        segmentSphere = model.GetNode<MeshInstance3D>("SegmentSphere");
+        segmentSphere.Transform = skel.GetBoneGlobalPose(mixamoRootNodeId);
+        segmentSphere.Transform = segmentSphere.Transform*mixamoToSimulationTransform;
+
+        //segmentStartId.Add(SegmentType.UpperTorso,skel.FindBone("mixamo_Spine2"));
+        //segmentStartId.Add(SegmentType.MidTorso,skel.FindBone("mixamo_Spine"));
+        //segmentStartId.Add(SegmentType.Pelvis,skel.FindBone("mixamo_Spine2"));
+        // segmentStartId.Add(SegmentType.UpperLeftArm,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.UpperRightArm,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.LowerLeftArm,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.LowerRightArm,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.UpperLeftLeg,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.UpperRightLeg,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.LowerLeftLeg,skel.FindBone("mixamo_"));
+        // segmentStartId.Add(SegmentType.LowerRightLeg,skel.FindBone("mixamo_"));
 
 
+        // foreach(SegmentType segment in  Enum.GetValues(typeof(SegmentType))) {
+            
+        // }
     }
 
     public override ImmutableDictionary<JointType,Vector3> HingeVectors() 

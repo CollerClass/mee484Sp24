@@ -156,11 +156,11 @@ albedo_texture = ExtResource("3_1wbfd")
 material = SubResource("StandardMaterial3D_0e017")
 size = Vector3(0.09, 0.06, 0.26)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7k16"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mwgw"]
 albedo_texture = ExtResource("6_0figt")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uomvn"]
-material = SubResource("StandardMaterial3D_q7k16")
+material = SubResource("StandardMaterial3D_7mwgw")
 radius = 0.07
 height = 0.14
 

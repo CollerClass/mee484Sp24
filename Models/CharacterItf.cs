@@ -21,7 +21,6 @@ public abstract class CharacterItf
     {
         //GD.Print("CharacterItf Constructor");
         uVec = new Vector3();
-        inertiaProps = new InertiaProps();
     }
     
     public virtual ImmutableDictionary<JointType,Vector3> HingeVectors() 
