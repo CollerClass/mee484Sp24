@@ -41,6 +41,7 @@ public class MixamoItf : CharacterItf
         quat = new Dictionary<JointType,Quaternion>(); 
         qR = new Dictionary<JointType,Quaternion>();
         qGl = new Dictionary<JointType,Quaternion>(); 
+        qGli = new Dictionary<JointType,Quaternion>();
     
 
         bIdx.Add(JointType.Waist, skel.FindBone("mixamorig_Spine"));
@@ -61,7 +62,7 @@ public class MixamoItf : CharacterItf
             quat.Add(id.Key, qR[id.Key]);
             tr = skel.GetBoneGlobalRest(id.Value);
             qGl.Add(id.Key, new Quaternion(tr.Basis));
-            qGli.Add(id.Key, new Quaternion(tr.Basis).Inverse());  
+            qGli.Add(id.Key,qGl[id.Key].Inverse());  
         }
 
     }
